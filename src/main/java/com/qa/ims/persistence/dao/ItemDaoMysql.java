@@ -1,5 +1,6 @@
 package com.qa.ims.persistence.dao;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -37,7 +38,7 @@ public class ItemDaoMysql implements Dao<Item> {
 		Item ItemFromResultSet(ResultSet resultSet) throws SQLException {
 			Long id = resultSet.getLong("id");
 			String IName = resultSet.getString("Item_name");
-			int price = resultSet.getInt("price");
+			BigDecimal price = resultSet.getBigDecimal("price");
 			return new Item(id, IName, price);
 		}
 
