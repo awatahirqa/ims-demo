@@ -1,16 +1,18 @@
 package com.qa.ims.persistence.domain;
 
+import java.math.BigDecimal;
+
 public class Item {
 	private Long id;
 	private String IName;
-	private double price;
+	private BigDecimal price;
 
-	public Item(String IName, double price) {
+	public Item(String IName, BigDecimal price) {
 		this.IName = IName;
 		this.price = price;
 	}
 
-	public Item(Long id, String IName, double price) {
+	public Item(Long id, String IName, BigDecimal price) {
 		this.id = id;
 		this.IName = IName;
 		this.price = price;
@@ -32,11 +34,11 @@ public class Item {
 		this.IName = IName;
 	}
 
-	public double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 
@@ -66,7 +68,7 @@ public class Item {
 		if (IName == null) {
 			if (other.IName != null)
 				return false;
-		} else if (!fIName.equals(other.IName))
+		} else if (!IName.equals(other.IName))
 			return false;
 		if (id == null) {
 			if (other.id != null)
@@ -84,4 +86,4 @@ public class Item {
 }
 
 
-}
+
