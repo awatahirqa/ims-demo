@@ -25,7 +25,7 @@ public class Order {
 		this.id = id;
 	}
 
-	public Long CustomerID() {
+	public Long getCustomerID() {
 		return CustomerID;
 	}
 
@@ -33,7 +33,7 @@ public class Order {
 		this.CustomerID = CustomerID;
 	}
 
-	public Long getOrderLIneID() {
+	public Long getOrderLineID() {
 		return OrderLineID;
 	}
 

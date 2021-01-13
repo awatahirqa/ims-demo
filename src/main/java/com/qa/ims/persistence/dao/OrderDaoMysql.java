@@ -84,8 +84,8 @@ public  class OrderDaoMysql implements Dao<Order> {
 		public Order create(Order order) {
 			try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 					Statement statement = connection.createStatement();) {
-				statement.executeUpdate("insert into orders(CustomerID, OrderLineID) values('" + order.CustomerID()
-						+ "','" + order.getOrderLIneID() + "')");
+				statement.executeUpdate("insert into orders(CustomerID, OrderLineID) values('" + order.getCustomerID()
+						+ "','" + order.getOrderLineID() + "')");
 				return readLatest();
 			} catch (Exception e) {
 				LOGGER.debug(e.getStackTrace());
@@ -118,8 +118,8 @@ public  class OrderDaoMysql implements Dao<Order> {
 		public Order update(Order order) {
 			try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 					Statement statement = connection.createStatement();) {
-				statement.executeUpdate("update orders set CustomerID ='" + order.CustomerID() + "', OrderLineID ='"
-						+ order.getOrderLIneID() + "' where id =" + order.getId());
+				statement.executeUpdate("update orders set CustomerID ='" + order.getCustomerID() + "', OrderLineID ='"
+						+ order.getOrderLineID() + "' where id =" + order.getId());
 				return readCustomer(order.getId());
 			} catch (Exception e) {
 				LOGGER.debug(e.getStackTrace());
