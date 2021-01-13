@@ -97,7 +97,7 @@ public  class OrderDaoMysql implements Dao<Order> {
 		public Order readCustomer(Long id) {
 			try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 					Statement statement = connection.createStatement();
-					ResultSet resultSet = statement.executeQuery("SELECT FROM orders where id = " + id);) {
+					ResultSet resultSet = statement.executeQuery("SELECT * FROM orders where id = " + id);) {
 				resultSet.next();
 				return OrderFromResultSet(resultSet);
 			} catch (Exception e) {
@@ -118,7 +118,7 @@ public  class OrderDaoMysql implements Dao<Order> {
 		public Order update(Order order) {
 			try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 					Statement statement = connection.createStatement();) {
-				statement.executeUpdate("update item set CustomerID ='" + order.CustomerID() + "', OrderLineID ='"
+				statement.executeUpdate("update orders set CustomerID ='" + order.CustomerID() + "', OrderLineID ='"
 						+ order.getOrderLIneID() + "' where id =" + order.getId());
 				return readCustomer(order.getId());
 			} catch (Exception e) {
