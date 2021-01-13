@@ -28,7 +28,7 @@ public class ItemController implements CrudController<Item> {
 		}
 
 	/**
-	 * Reads all customers to the logger
+	 * Reads all items to the logger
 	 */
 	@Override
 	public List<Item> readAll() {
@@ -40,7 +40,7 @@ public class ItemController implements CrudController<Item> {
 	}
 
 	/**
-	 * Creates a customer by taking in user input
+	 * Creates a item by taking in user input
 	 */
 	@Override
 	public Item create() {
@@ -54,7 +54,7 @@ public class ItemController implements CrudController<Item> {
 	}
 
 	/**
-	 * Updates an existing customer by taking in user input
+	 * Updates an existing item by taking in user input
 	 */
 	@Override
 	public Item update() {
@@ -65,12 +65,12 @@ public class ItemController implements CrudController<Item> {
 		LOGGER.info("Please enter a price");
 		BigDecimal price = getBigDecimalInput();
 		Item item = itemService.update(new Item(id, IName, price));
-		LOGGER.info("Customer Updated");
+		LOGGER.info("Item Updated");
 		return item;
 	}
 
 	/**
-	 * Deletes an existing customer by the id of the customer
+	 * Deletes an existing item by the id of the item
 	 */
 	@Override
 	public void delete() {
