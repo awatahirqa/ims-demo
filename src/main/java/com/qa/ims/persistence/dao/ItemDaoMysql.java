@@ -67,7 +67,7 @@ public class ItemDaoMysql implements Dao<Item> {
 		public Item readLatest() {
 			try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 					Statement statement = connection.createStatement();
-					ResultSet resultSet = statement.executeQuery("SELECT FROM customers ORDER BY id DESC LIMIT 1");) {
+					ResultSet resultSet = statement.executeQuery("SELECT * FROM item ORDER BY id DESC LIMIT 1");) {
 				resultSet.next();
 				return ItemFromResultSet(resultSet);
 			} catch (Exception e) {
@@ -86,7 +86,7 @@ public class ItemDaoMysql implements Dao<Item> {
 		public Item create(Item item) {
 			try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 					Statement statement = connection.createStatement();) {
-				statement.executeUpdate("insert into item(IName, price) values('" + item.getIName()
+				statement.executeUpdate("insert into item(item_name, price) values('" + item.getIName()
 						+ "','" + item.getPrice() + "')");
 				return readLatest();
 			} catch (Exception e) {
