@@ -2,7 +2,6 @@ package com.qa.ims.controller;
 
 import static org.junit.Assert.assertEquals;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +39,7 @@ public class ItemControllerTest {
 		List<Item> items = new ArrayList<>();
 		items.add(new Item("Nokia Moon", 599.99));
 		items.add(new Item("Samsung Galaxy", 649.99));
-		items.add(new Item("Iphone 12", 1200,00));
+		items.add(new Item("Iphone 12", 1200.00));
 		Mockito.when(itemServices.readAll()).thenReturn(items);
 		assertEquals(items, itemController.readAll());
 	}
@@ -48,7 +47,7 @@ public class ItemControllerTest {
 	@Test
 	public void createTest() {
 		String IName = "Iphone 11";
-		BigDecimal Price = 1100.00;
+		Double Price = 1100.00;
 		Mockito.doReturn(IName, Price).when(itemController).getInput();
 		Item item = new Item(IName, Price);
 		Item savedItem = new Item(1L, "Iphone 11", 1100.00);
@@ -62,7 +61,7 @@ public class ItemControllerTest {
 	public void updateTest() {
 		String id = "1";
 		String IName = "Nokia Sun";
-		BigDecimal Price = 699.99;
+		Double Price = 699.99;
 		Mockito.doReturn(id, IName, Price).when(itemController).getInput();
 		Item item= new Item(1L, IName, Price);
 		Mockito.when(itemServices.update(item)).thenReturn(item);

@@ -1,5 +1,4 @@
 package com.qa.ims.persistence.domain;
-import java.math.BigDecimal;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -48,7 +47,7 @@ public class ItemTest {
 	public void createItemWithId() {
 		assertEquals(1L, item.getId(), 0);
 		assertEquals("Samsung Galaxy S6", item.getIName());
-		assertEquals(899.99, item.getPrice());
+		assertEquals(899.99, item.getPrice(),0);
 	}
 	
 	@Test
