@@ -45,7 +45,7 @@ public class ItemTest {
 	}
 	
 	@Test
-	public void createCustomerWithId() {
+	public void createItemWithId() {
 		assertEquals(1L, item.getId(), 0);
 		assertEquals("Samsung Galaxy S6", item.getIName());
 		assertEquals(899.99, item.getPrice());
@@ -62,7 +62,7 @@ public class ItemTest {
 	}
 	
 	@Test
-	public void itemNameNullButOtherNameNotNull() {
+	public void itemNameNullButOtheritemNameNotNull() {
 		item.setIName(null);
 		assertFalse(item.equals(other));
 	}
@@ -74,7 +74,7 @@ public class ItemTest {
 	}
 	
 	@Test
-	public void checkEqualityBetweenDifferentObjectsNullName() {
+	public void checkEqualityBetweenDifferentObjectsNullitemName() {
 		item.setIName(null);
 		other.setIName(null);
 		assertTrue(item.equals(other));

@@ -16,8 +16,8 @@ public class OrderTest {
 	
 	@Before
 	public void setUp() {
-		order = new Order(1L, 1, 1);
-		other = new Order(1L, 2, 2);
+		order = new Order(1L, 1L, 1L);
+		other = new Order(1L, 2L, 2L);
 	}
 	
 	@Test
@@ -48,8 +48,8 @@ public class OrderTest {
 	@Test
 	public void createOrderWithId() {
 		assertEquals(1L, order.getId(), 0);
-		assertEquals((long)1, order.getCustomerID());
-		assertEquals((long)1, order.getOrderLineID());
+		assertEquals(1L, order.getCustomerID(),0);
+		assertEquals(1L, order.getOrderLineID(),0);
 	}
 	
 	@Test
@@ -115,13 +115,13 @@ public class OrderTest {
 	
 	@Test
 	public void otherOrderLineIDDifferent() {
-		other.setOrderLineID((long) 3);
+		other.setOrderLineID(3L);
 		assertFalse(order.equals(other));
 	}
 	
 	@Test
 	public void constructorWithoutId() {
-		Order order = new Order(1, 1);
+		Order order = new Order(1L, 1L);
 		assertNull(order.getId());
 		assertNotNull(order.getCustomerID());
 		assertNotNull(order.getOrderLineID());
