@@ -15,14 +15,17 @@ import com.qa.ims.controller.CrudController;
 import com.qa.ims.controller.CustomerController;
 import com.qa.ims.controller.ItemController;
 import com.qa.ims.controller.OrderController;
+import com.qa.ims.controller.OrderLineController;
 import com.qa.ims.persistence.dao.CustomerDaoMysql;
 import com.qa.ims.persistence.dao.ItemDaoMysql;
 import com.qa.ims.persistence.dao.OrderDaoMysql;
+import com.qa.ims.persistence.dao.OrderLineDaoMysql;
 import com.qa.ims.persistence.domain.Domain;
 import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.services.CrudServices;
 import com.qa.ims.services.CustomerServices;
 import com.qa.ims.services.ItemServices;
+import com.qa.ims.services.OrderLineServices;
 import com.qa.ims.services.OrderServices;
 import com.qa.ims.utils.Utils;
 
@@ -32,9 +35,9 @@ public class Ims {
 
 	public void imsSystem() {
 		LOGGER.info("What is your username");
-		String username = Utils.getInput();
+		String username = Utils.getInput(); 
 		LOGGER.info("What is your password");
-		String password = Utils.getInput();
+		String password = Utils.getInput(); 
 
 		init(username, password);
 
@@ -63,6 +66,11 @@ public class Ims {
 			OrderController orderController = new OrderController(
 				 new OrderServices(new OrderDaoMysql(username, password)));
 			doAction(orderController, action);
+			break;
+		case ORDERLINE:
+			OrderLineController orderlineController = new OrderLineController(
+				 new OrderLineServices(new OrderLineDaoMysql(username, password)));
+			doAction(orderlineController, action);
 			break;
 		case STOP:
 			break;
