@@ -11,7 +11,9 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.qa.ims.persistence.domain.Order;
-
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 public  class OrderDaoMysql implements Dao<Order> {
 	  
 
@@ -37,13 +39,18 @@ public  class OrderDaoMysql implements Dao<Order> {
 			Long ID = resultSet.getLong("ID");
 			Long CustomerID = resultSet.getLong("CustomerID");
 			Long OrderLineID = resultSet.getLong("OrderLineID");
-			Long ItemID = resultSet.getLong("ItemID");
+			List<Order> order = new ArrayList<>();
+			while (resultSet.next()) {
+				order.add(OrderFromResultSet(resultSet));
+			}
+			return order;
 			Long Quantity = resultSet.getLong("Quantity");
-			return new Order(ID, CustomerID, OrderLineID, ItemID, Quantity);
+			return new Order(ID, CustomerID, OrderLineID, ItemIDs, Quantity);
 		}
 
 		/**
 		 * Reads all customers from the database
+		 * @param itemIDs 
 		 * 
 		 * @return A list of customers
 		 */

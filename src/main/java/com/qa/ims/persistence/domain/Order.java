@@ -1,25 +1,27 @@
 package com.qa.ims.persistence.domain;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class Order {
 	private Long ID;
 	private Long CustomerID;
 	private Long OrderLineID;
-	private Long ItemID;
+	private List<Long> ItemIDs = new ArrayList<>();
 	private Long Quantity;
 
-	public Order(Long CustomerID, Long OrderLineID,Long ItemID,Long Quantity) {
+	public Order(Long CustomerID, Long OrderLineID,List<Long> ItemIDs,Long Quantity) {
 		this.CustomerID = CustomerID;
 		this.OrderLineID = OrderLineID;
-		this.ItemID = ItemID;
+		this.ItemIDs = ItemIDs;
 		this.Quantity = Quantity;
 	}
 
-	public Order(Long ID, Long CustomerID, Long OrderLineID,Long ItemID,Long Quantity) {
+	public Order(Long ID, Long CustomerID, Long OrderLineID,List<Long> ItemIDs,Long Quantity) {
 		this.ID = ID;
 		this.CustomerID = CustomerID;
 		this.OrderLineID = OrderLineID;
-		this.ItemID = ItemID;
+		this.ItemIDs = ItemIDs;
 		this.Quantity = Quantity;
 	}
 
@@ -48,12 +50,12 @@ public class Order {
 	}
 	
 
-	public Long getItemID() {
-		return ItemID;
+	public List<Long> getItemID() {
+		return ItemIDs;
 	}
 
-	public void setItemID(Long ItemID) {
-		this.ItemID = ItemID;
+	public void setItemID(List<Long> ItemIDs) {
+		this.ItemIDs = ItemIDs;
 	}
 
 	public Long getQuantity() {
@@ -67,7 +69,7 @@ public class Order {
 	
 	@Override
 	public String toString() {
-		return "Order [ID =" + ID + ", CustomerID =" + CustomerID + ", OrderLineID =" + OrderLineID + ", ItemID =" + ItemID
+		return "Order [ID =" + ID + ", CustomerID =" + CustomerID + ", OrderLineID =" + OrderLineID + ", ItemIDs =" + ItemIDs
 				+ ", quantity =" + Quantity + "]";
 	}
 
@@ -78,7 +80,7 @@ public class Order {
 		result = prime * result + ((CustomerID == null) ? 0 : CustomerID.hashCode());
 		result = prime * result + ((ID == null) ? 0 : ID.hashCode());
 		result = prime * result + ((OrderLineID == null) ? 0 : OrderLineID.hashCode());
-		result = prime * result + ((ItemID == null) ? 0 : ItemID.hashCode());
+		result = prime * result + ((ItemIDs == null) ? 0 : ItemIDs.hashCode());
 		result = prime * result + ((Quantity == null) ? 0 : Quantity.hashCode());
 		return result;
 	}
@@ -107,10 +109,10 @@ public class Order {
 				return false;
 		} else if (!OrderLineID.equals(other.OrderLineID))
 			return false;
-		if (ItemID == null) {
-			if (other.ItemID != null)
+		if (ItemIDs == null) {
+			if (other.ItemIDs != null)
 				return false;
-		} else if (!ItemID.equals(other.ItemID))
+		} else if (!ItemIDs.equals(other.ItemIDs))
 			return false;
 		if (Quantity == null) {
 			if (other.Quantity != null)
