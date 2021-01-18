@@ -2,27 +2,33 @@ package com.qa.ims.persistence.domain;
 
 
 public class Order {
-	private Long id;
+	private Long ID;
 	private Long CustomerID;
 	private Long OrderLineID;
+	private Long ItemID;
+	private Long Quantity;
 
-	public Order(Long CustomerID, Long OrderLineID) {
+	public Order(Long CustomerID, Long OrderLineID,Long ItemID,Long Quantity) {
 		this.CustomerID = CustomerID;
 		this.OrderLineID = OrderLineID;
+		this.ItemID = ItemID;
+		this.Quantity = Quantity;
 	}
 
-	public Order(Long id, Long CustomerID, Long OrderLineID) {
-		this.id = id;
+	public Order(Long ID, Long CustomerID, Long OrderLineID,Long ItemID,Long Quantity) {
+		this.ID = ID;
 		this.CustomerID = CustomerID;
 		this.OrderLineID = OrderLineID;
+		this.ItemID = ItemID;
+		this.Quantity = Quantity;
 	}
 
-	public Long getId() {
-		return id;
+	public Long getID() {
+		return ID;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setID(Long ID) {
+		this.ID = ID;
 	}
 
 	public Long getCustomerID() {
@@ -40,9 +46,29 @@ public class Order {
 	public void setOrderLineID(Long OrderLineID) {
 		this.OrderLineID = OrderLineID;
 	}
+	
 
+	public Long getItemID() {
+		return ItemID;
+	}
+
+	public void setItemID(Long ItemID) {
+		this.ItemID = ItemID;
+	}
+
+	public Long getQuantity() {
+		return Quantity;
+	}
+
+	public void setQuantity(Long Quantity) {
+		this.Quantity = Quantity;
+	}
+
+	
+	@Override
 	public String toString() {
-		return "id:" + id + " CustomerID:" + CustomerID + " OrderLineID:" + OrderLineID;
+		return "Order [ID =" + ID + ", CustomerID =" + CustomerID + ", OrderLineID =" + OrderLineID + ", ItemID =" + ItemID
+				+ ", quantity =" + Quantity + "]";
 	}
 
 	@Override
@@ -50,8 +76,10 @@ public class Order {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((CustomerID == null) ? 0 : CustomerID.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((ID == null) ? 0 : ID.hashCode());
 		result = prime * result + ((OrderLineID == null) ? 0 : OrderLineID.hashCode());
+		result = prime * result + ((ItemID == null) ? 0 : ItemID.hashCode());
+		result = prime * result + ((Quantity == null) ? 0 : Quantity.hashCode());
 		return result;
 	}
 
@@ -69,15 +97,25 @@ public class Order {
 				return false;
 		} else if (!CustomerID.equals(other.CustomerID))
 			return false;
-		if (id == null) {
-			if (other.id != null)
+		if (ID == null) {
+			if (other.ID != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!ID.equals(other.ID))
 			return false;
 		if (OrderLineID == null) {
 			if (other.OrderLineID != null)
 				return false;
 		} else if (!OrderLineID.equals(other.OrderLineID))
+			return false;
+		if (ItemID == null) {
+			if (other.ItemID != null)
+				return false;
+		} else if (!ItemID.equals(other.ItemID))
+			return false;
+		if (Quantity == null) {
+			if (other.Quantity != null)
+				return false;
+		} else if (!Quantity.equals(other.Quantity))
 			return false;
 		return true;
 	}
