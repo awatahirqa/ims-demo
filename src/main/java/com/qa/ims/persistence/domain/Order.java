@@ -26,7 +26,20 @@ public class Order {
 		this.ItemIDs = ItemIDs;
 		this.Quantity = Quantity;
 	}
-
+	//Order Constructor 
+	public Order(Long CustomerID, Long OrderLineID) {
+		this.CustomerID = CustomerID;
+		this.OrderLineID = OrderLineID;
+		
+	}
+	
+	//OrderLine Constructor
+	public Order( Long OrderLineID,List<Long> ItemIDs,Long Quantity) {
+		this.OrderLineID = OrderLineID;
+		this.ItemIDs = ItemIDs;
+		this.Quantity = Quantity;
+	}
+	
 	public Long getID() {
 		return ID;
 	}

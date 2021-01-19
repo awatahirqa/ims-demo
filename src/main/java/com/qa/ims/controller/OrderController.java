@@ -7,15 +7,17 @@ import org.apache.log4j.Logger;
 
 import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.services.CrudServices;
+import com.qa.ims.services.OrderCrudServices;
+import com.qa.ims.services.OrderServices;
 import com.qa.ims.utils.Utils;
 
-public class OrderController implements CrudController<Order> {
+public class OrderController implements OrderCrudController<Order> {
 
 	public static final Logger LOGGER = Logger.getLogger(OrderController.class);
 
-	private CrudServices<Order> orderService;
+	private OrderCrudServices<Order> orderService;
 
-	public OrderController(CrudServices<Order> orderService) {
+	public OrderController(OrderCrudServices<Order> orderService) {
 		this.orderService = orderService;
 	}
 
@@ -47,6 +49,14 @@ public class OrderController implements CrudController<Order> {
 		Long CustomerID = getLong();
 		LOGGER.info("Please enter a OrderLineID");
 		Long OrdeLineID = getLong();
+		Order order = orderService.create(new Order(CustomerID,OrdeLineID));
+		return order;
+		}
+		
+    
+	public Order createOrderLine() {
+		LOGGER.info("Please enter a OrderLineID");
+		Long OrdeLineID = getLong();
 		LOGGER.info("Please enter the number of the Items you want to add");
 		Long Quantity = getLong();
 		List<Long> ItemIDs = new ArrayList<>();
@@ -56,9 +66,9 @@ public class OrderController implements CrudController<Order> {
 			ItemIDs.add(Long.valueOf((getInput())));
 		}
 		 
-		Order order = orderService.create(new Order(CustomerID, OrdeLineID, ItemIDs, Quantity));
-		LOGGER.info("Order created");
-		return order;
+		Order orderline =  orderService.createOrderLine(new Order( OrdeLineID, ItemIDs, Quantity));
+		LOGGER.info("Orderline created");
+		return orderline;
 	}
 
 	/**
@@ -93,6 +103,26 @@ public class OrderController implements CrudController<Order> {
 		LOGGER.info("Please enter the id of the order you would like to delete");
 		Long id = Long.valueOf(getInput());
 		orderService.delete(id);
+	}
+
+	@Override
+	public Order add() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public void deleteItem() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Order cost() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

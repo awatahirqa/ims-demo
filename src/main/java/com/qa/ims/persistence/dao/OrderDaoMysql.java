@@ -97,9 +97,6 @@ public  class OrderDaoMysql implements Dao<Order> {
 					Statement statement = connection.createStatement();) {
 				statement.executeUpdate("insert into orders(CustomerID, OrderLineID) values('" + order.getCustomerID()
 						+ "','" + order.getOrderLineID() + "')");
-				statement.executeUpdate("INSERT INTO orderline(id,orderID, itemIDs, quantity) values('"+ order.getOrderLineID()+ "','" + order.getID() + "','"
-						+ order.getItemID() + "','"
-						+ order.getQuantity() + "')");
 				return readLatest();
 			} catch (Exception e) {
 				LOGGER.debug(e.getStackTrace());
@@ -107,21 +104,6 @@ public  class OrderDaoMysql implements Dao<Order> {
 			}
 			return null;
 		}
-		public Order createOrderLine(Order order) {
-			try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
-					Statement statement = connection.createStatement();) {
-				statement.executeUpdate("INSERT INTO orderline(id,orderID, itemID, quantity) values('"+ order.getOrderLineID()+ "','" + order.getID() + "','"
-						+ order.getItemID() + "','"
-						+ order.getQuantity() + "')");
-				return readLatest();
-			} catch (Exception e) {
-				LOGGER.debug(e.getStackTrace());
-				LOGGER.error(e.getMessage());
-			}
-			return null;
-		}
-
-
 		public Order readOrder(Long id) {
 			try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 					Statement statement = connection.createStatement();
@@ -170,6 +152,37 @@ public  class OrderDaoMysql implements Dao<Order> {
 				LOGGER.debug(e.getStackTrace());
 				LOGGER.error(e.getMessage());
 			}
+		}
+		
+		
+		public Order createOrderLine(Order order) {
+			try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
+					Statement statement = connection.createStatement();) {
+				statement.executeUpdate("INSERT INTO orderline(orderID, itemID, quantity) values('" + order.getID() + "','"
+						+ order.getItemID() + "','"
+						+ order.getQuantity() + "')");
+				return readLatest();
+			} catch (Exception e) {
+				LOGGER.debug(e.getStackTrace());
+				LOGGER.error(e.getMessage());
+			}
+			return null;
+		}
+
+		public void deleteItem(Long orderid, Long itemid) {
+			// TODO Auto-generated method stub
+			try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
+					Statement statement = connection.createStatement();) {
+				statement.executeUpdate("delete from orderline where orderID = '" + orderid + "' AND itemID = '" + itemid + "'");
+			} catch (Exception e) {
+				LOGGER.debug(e.getStackTrace());
+				LOGGER.error(e.getMessage());
+			}
+		}
+		
+		public Order cost(Order t) {
+			// TODO Auto-generated method stub
+			return null;
 		}
 
 }

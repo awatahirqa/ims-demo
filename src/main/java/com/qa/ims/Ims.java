@@ -15,6 +15,7 @@ import com.qa.ims.controller.CrudController;
 import com.qa.ims.controller.CustomerController;
 import com.qa.ims.controller.ItemController;
 import com.qa.ims.controller.OrderController;
+import com.qa.ims.controller.OrderCrudController;
 import com.qa.ims.controller.OrderLineController;
 import com.qa.ims.persistence.dao.CustomerDaoMysql;
 import com.qa.ims.persistence.dao.ItemDaoMysql;
@@ -65,7 +66,7 @@ public class Ims {
 		case ORDER:
 			OrderController orderController = new OrderController(
 				 new OrderServices(new OrderDaoMysql(username, password)));
-			doAction(orderController, action);
+			doOrderAction(orderController, action);
 			break;
 		case ORDERLINE:
 			OrderLineController orderlineController = new OrderLineController(
@@ -81,6 +82,26 @@ public class Ims {
 	}
 
 	public void doAction(CrudController<?> crudController, Action action) {
+		switch (action) {
+		case CREATE:
+			crudController.create();
+			break;
+		case READ:
+			crudController.readAll();
+			break;
+		case UPDATE:
+			crudController.update();
+			break;
+		case DELETE:
+			crudController.delete();
+			break;
+		case RETURN:
+			break;
+		default:
+			break;
+		}
+	}
+	public void doOrderAction(OrderCrudController<?> crudController, Action action) {
 		switch (action) {
 		case CREATE:
 			crudController.create();
