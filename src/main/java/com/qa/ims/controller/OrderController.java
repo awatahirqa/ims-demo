@@ -17,8 +17,8 @@ public class OrderController implements OrderCrudController<Order> {
 
 	private OrderCrudServices<Order> orderService;
 
-	public OrderController(OrderCrudServices<Order> orderService) {
-		this.orderService = orderService;
+	public OrderController(OrderServices orderServices) {
+		this.orderService = orderServices;
 	}
 
 	String getInput() {
@@ -66,7 +66,7 @@ public class OrderController implements OrderCrudController<Order> {
 			ItemIDs.add(Long.valueOf((getInput())));
 		}
 		 
-		Order orderline =  orderService.createOrderLine(new Order( OrdeLineID, ItemIDs, Quantity));
+		Order orderline =  orderService.createOrderLine(new Order( OrdeLineID, Quantity, ItemIDs));
 		LOGGER.info("Orderline created");
 		return orderline;
 	}
@@ -90,7 +90,7 @@ public class OrderController implements OrderCrudController<Order> {
 			ItemIDs.add(Long.valueOf((getInput())));
 		}
 		
-		Order order = orderService.update(new Order(id, CustomerID, OrderLineID, ItemIDs, Quantity));
+		Order order = orderService.update(new Order(id, CustomerID, OrderLineID, Quantity, ItemIDs));
 		LOGGER.info("Order Updated");
 		return order;
 	}

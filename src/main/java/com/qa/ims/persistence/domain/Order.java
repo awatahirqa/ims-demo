@@ -5,47 +5,51 @@ import java.util.List;
 
 public class Order {
 	//Order Attributes
-	private Long ID;
+	private Long OrderID;
 	private Long CustomerID;
-	private Long OrderLineID;
 	//OrderLine Attributes
 	private List<Long> ItemIDs = new ArrayList<>();
 	private Long Quantity;
 
-	public Order(Long CustomerID, Long OrderLineID,List<Long> ItemIDs,Long Quantity) {
+	public Order(Long CustomerID,List<Long> ItemIDs,Long Quantity) {
 		this.CustomerID = CustomerID;
-		this.OrderLineID = OrderLineID;
 		this.ItemIDs = ItemIDs;
 		this.Quantity = Quantity;
 	}
 
-	public Order(Long ID, Long CustomerID, Long OrderLineID,List<Long> ItemIDs,Long Quantity) {
-		this.ID = ID;
+	public Order(Long ID, Long CustomerID,Long Quantity,List<Long> ItemIDs) {
+		this.OrderID = ID;
 		this.CustomerID = CustomerID;
-		this.OrderLineID = OrderLineID;
-		this.ItemIDs = ItemIDs;
 		this.Quantity = Quantity;
+		this.ItemIDs = ItemIDs;
+		
 	}
 	//Order Constructor 
 	public Order(Long CustomerID, Long OrderLineID) {
 		this.CustomerID = CustomerID;
-		this.OrderLineID = OrderLineID;
+		
+		
+	}
+	public Order(Long ID, Long CustomerID, Long OrderLineID) {
+		this.OrderID = ID;
+		this.CustomerID = CustomerID;
+		
+		
+	}
+	//OrderLine Constructor
+	public Order( Long OrderID,Long Quantity,List<Long> ItemIDs) {
+		this.OrderID = OrderID;
+		this.Quantity = Quantity;
+		this.ItemIDs = ItemIDs;
 		
 	}
 	
-	//OrderLine Constructor
-	public Order( Long OrderLineID,List<Long> ItemIDs,Long Quantity) {
-		this.OrderLineID = OrderLineID;
-		this.ItemIDs = ItemIDs;
-		this.Quantity = Quantity;
-	}
-	
 	public Long getID() {
-		return ID;
+		return OrderID;
 	}
 
 	public void setID(Long ID) {
-		this.ID = ID;
+		this.OrderID = ID;
 	}
 
 	public Long getCustomerID() {
@@ -56,13 +60,6 @@ public class Order {
 		this.CustomerID = CustomerID;
 	}
 
-	public Long getOrderLineID() {
-		return OrderLineID;
-	}
-
-	public void setOrderLineID(Long OrderLineID) {
-		this.OrderLineID = OrderLineID;
-	}
 	
 
 	public List<Long> getItemID() {
@@ -84,7 +81,7 @@ public class Order {
 	
 	@Override
 	public String toString() {
-		return "Order [ID =" + ID + ", CustomerID =" + CustomerID + ", OrderLineID =" + OrderLineID + ", ItemIDs =" + ItemIDs
+		return "Order [ID =" + OrderID + ", CustomerID =" + CustomerID + ","  + ", ItemIDs =" + ItemIDs
 				+ ", quantity =" + Quantity + "]";
 	}
 
@@ -93,8 +90,7 @@ public class Order {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((CustomerID == null) ? 0 : CustomerID.hashCode());
-		result = prime * result + ((ID == null) ? 0 : ID.hashCode());
-		result = prime * result + ((OrderLineID == null) ? 0 : OrderLineID.hashCode());
+		result = prime * result + ((OrderID == null) ? 0 : OrderID.hashCode());
 		result = prime * result + ((ItemIDs == null) ? 0 : ItemIDs.hashCode());
 		result = prime * result + ((Quantity == null) ? 0 : Quantity.hashCode());
 		return result;
@@ -114,16 +110,12 @@ public class Order {
 				return false;
 		} else if (!CustomerID.equals(other.CustomerID))
 			return false;
-		if (ID == null) {
-			if (other.ID != null)
+		if (OrderID == null) {
+			if (other.OrderID != null)
 				return false;
-		} else if (!ID.equals(other.ID))
+		} else if (!OrderID.equals(other.OrderID))
 			return false;
-		if (OrderLineID == null) {
-			if (other.OrderLineID != null)
-				return false;
-		} else if (!OrderLineID.equals(other.OrderLineID))
-			return false;
+		
 		if (ItemIDs == null) {
 			if (other.ItemIDs != null)
 				return false;
