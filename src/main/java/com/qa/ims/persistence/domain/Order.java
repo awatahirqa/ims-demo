@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
+	//Order Attributes
 	private Long ID;
 	private Long CustomerID;
 	private Long OrderLineID;
+	//OrderLine Attributes
 	private List<Long> ItemIDs = new ArrayList<>();
 	private Long Quantity;
 

@@ -47,13 +47,15 @@ public class OrderController implements CrudController<Order> {
 		Long CustomerID = getLong();
 		LOGGER.info("Please enter a OrderLineID");
 		Long OrdeLineID = getLong();
-		LOGGER.info("Please enter the Quantity of the Item you want to add");
+		LOGGER.info("Please enter the number of the Items you want to add");
 		Long Quantity = getLong();
 		List<Long> ItemIDs = new ArrayList<>();
-		for (int i = 1; i <= Quantity; i++) {
-			LOGGER.info("Please enter the ID of item number " + i + ": ");
+		LOGGER.info("Please enter the itemIDs you want to add");
+			for (int i = 1; i <= Quantity; i++) {
+				LOGGER.info("Please enter the ID of item number " + i + ": ");
 			ItemIDs.add(Long.valueOf((getInput())));
 		}
+		 
 		Order order = orderService.create(new Order(CustomerID, OrdeLineID, ItemIDs, Quantity));
 		LOGGER.info("Order created");
 		return order;
@@ -70,7 +72,7 @@ public class OrderController implements CrudController<Order> {
 		Long CustomerID = getLong();
 		LOGGER.info("Please enter a OrderLineID");
 		Long OrderLineID = getLong();
-		LOGGER.info("Please enter the Quantity of Items you want to add");
+		LOGGER.info("Please enter the Number of Items you want to add");
 		Long Quantity = getLong();
 		List<Long> ItemIDs = new ArrayList<>();
 		for (int i = 1; i <= Quantity; i++) {
