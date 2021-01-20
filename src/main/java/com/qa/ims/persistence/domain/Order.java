@@ -7,19 +7,22 @@ public class Order {
 	//Order Attributes
 	private Long OrderID;
 	private Long CustomerID;
+	private Integer Cost;
 	//OrderLine Attributes
-	private List<Long> ItemIDs = new ArrayList<>();
-	private Long Quantity;
+	private ArrayList<Item> ItemIDs = new ArrayList<>();
+	private Integer Quantity;
+	private Item itemIDs ;
 
-	public Order(Long CustomerID,List<Long> ItemIDs,Long Quantity) {
+	public Order(Long CustomerID,ArrayList<Item> ItemIDs,Integer Quantity) {
 		this.CustomerID = CustomerID;
 		this.ItemIDs = ItemIDs;
 		this.Quantity = Quantity;
 	}
 
-	public Order(Long ID, Long CustomerID,Long Quantity,List<Long> ItemIDs) {
-		this.OrderID = ID;
+	public Order(Long OrderID, Long CustomerID,Integer Cost,Integer Quantity,ArrayList<Item> ItemIDs) {
+		this.OrderID = OrderID;
 		this.CustomerID = CustomerID;
+		this.Cost = Cost;
 		this.Quantity = Quantity;
 		this.ItemIDs = ItemIDs;
 		
@@ -37,7 +40,7 @@ public class Order {
 		
 	}
 	//OrderLine Constructor
-	public Order( Long OrderID,Long Quantity,List<Long> ItemIDs) {
+	public Order( Long OrderID,Integer Quantity,ArrayList<Item> ItemIDs) {
 		this.OrderID = OrderID;
 		this.Quantity = Quantity;
 		this.ItemIDs = ItemIDs;
@@ -60,28 +63,40 @@ public class Order {
 		this.CustomerID = CustomerID;
 	}
 
-	
-
-	public List<Long> getItemID() {
+	public ArrayList<Item> getItemID() {
 		return ItemIDs;
 	}
 
-	public void setItemID(List<Long> ItemIDs) {
+	public void setItemID(ArrayList<Item> ItemIDs) {
 		this.ItemIDs = ItemIDs;
 	}
 
-	public Long getQuantity() {
+	public Integer getQuantity() {
 		return Quantity;
 	}
 
-	public void setQuantity(Long Quantity) {
+	public void setQuantity(Integer Quantity) {
 		this.Quantity = Quantity;
+	}
+	public Integer getCost() {
+		return Cost;
+	}
+
+	public void setCost(Integer cost) {
+		this.Cost = cost;
+	}
+	public Item getItemIDs() {
+		return itemIDs;
+	}
+
+	public void setItemIDs(Item itemIDs) {
+		this.itemIDs = itemIDs;
 	}
 
 	
 	@Override
 	public String toString() {
-		return "Order [ID =" + OrderID + ", CustomerID =" + CustomerID + ","  + ", ItemIDs =" + ItemIDs
+		return "Order [ID =" + OrderID + ", CustomerID =" + CustomerID + "," + "Cost =" + Cost + ", ItemIDs =" + ItemIDs
 				+ ", quantity =" + Quantity + "]";
 	}
 
@@ -115,7 +130,11 @@ public class Order {
 				return false;
 		} else if (!OrderID.equals(other.OrderID))
 			return false;
-		
+		if (Cost == null) {
+			if (other.Cost != null)
+				return false;
+		} else if (!Cost.equals(other.Cost))
+			return false;
 		if (ItemIDs == null) {
 			if (other.ItemIDs != null)
 				return false;
@@ -128,6 +147,10 @@ public class Order {
 			return false;
 		return true;
 	}
+
+	
+
+
 
 }
 

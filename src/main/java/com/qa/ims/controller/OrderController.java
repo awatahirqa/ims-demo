@@ -19,8 +19,9 @@ public class OrderController implements OrderCrudController<Order> {
 	private OrderCrudServices<Order> orderService;
 	private CrudServices<Item> itemServices;
 
-	public OrderController(OrderServices orderServices) {
+	public OrderController(OrderServices orderServices,CrudServices<Item> itemServices) {
 		this.orderService = orderServices;
+		this.itemServices = itemServices;
 	}
 
 	String getInput() {
@@ -51,70 +52,77 @@ public class OrderController implements OrderCrudController<Order> {
 		Long CustomerID = getLong();
 		Order order = orderService.create(new Order(CustomerID));
 		Long OrderID = order.getOrderID();
-//		arrl.add(order);
-		LOGGER.info("Order " + OrderID + " created ");
+		List<Item> items = itemServices.readAll();
+		Item item = null;
 		LOGGER.info("Would you like to add an order to this item");
-		String Responce = getInput();
+		Boolean loop = false;
+		String Escape = "";
 		
-		
-		while (Responce == "yes") {
+
+		while (!loop) {
+			LOGGER.info("Please enter ITEM ID");
+			Long item_id = Long.valueOf(getInput());
+			LOGGER.info("Please enter the Quantity of the ITEM that you'd like");
+			Integer quantity = Integer.valueOf(getInput());
+
+			for (Item i : items) {
+				if (i.getId() == item_id) {
+					item = i;
+					LOGGER.info("You have added" +  " " + quantity +" " + "of the below Item" );
+					System.out.println(i);
+					break;
+				}
 			
-			LOGGER.info("Please enter the number of the Items you want to add");
-			Long Quantity = getLong();
-			List<Long> ItemIDs = new ArrayList<>();
-			LOGGER.info("Please enter the itemIDs you want to add");
-				for (int i = 1; i <= Quantity; i++) {
-					LOGGER.info("Please enter the ID number of the items you would like to add " + i + ": ");
-				ItemIDs.add(Long.valueOf((getInput())));
+				System.out.println(item);
+				order.setItemIDs(item);
+				int cost = (int) (item.getPrice() * quantity);
+				order.setQuantity(quantity);
+				order.setCost(cost);
+				order = orderService.addItem(order);
+				LOGGER.info("ADD: To add another Item to the order ");
+				LOGGER.info("RETURN: TO EXIT ");
+				Escape = getInput().toLowerCase();
+				if (Escape.contentEquals("return")) {
+					loop = true;
+				}
+
 			}
-			 
-			Order orderline =  orderService.create(new Order(OrderID, Quantity, ItemIDs));
-			LOGGER.info("Orderline created");
-			return orderline;
-		}
-		
+			LOGGER.info("Order Created");
 			
-		
-		return null;
+	}
+		return order;
 	}
     
-	public Order createOrderLine() {
-		LOGGER.info("Please enter the OrderID of the order you would like to update");
-		Long OrderID = getLong();
-		LOGGER.info("Please enter the number of the Items you want to add");
-		Long Quantity = getLong();
-		List<Long> ItemIDs = new ArrayList<>();
-		LOGGER.info("Please enter the itemIDs you want to add");
-			for (int i = 1; i <= Quantity; i++) {
-				LOGGER.info("Please enter the ID of item number " + i + ": ");
-			ItemIDs.add(Long.valueOf((getInput())));
-		}
-		 
-		Order orderline =  orderService.create(new Order(OrderID, Quantity, ItemIDs));
-		LOGGER.info("Orderline created");
-		return orderline;
-	}
 
 	/**
 	 * Updates an existing order by taking in user input
 	 */
 	@Override
 	public Order update() {
-		LOGGER.info("Please enter the id of the order you would like to update");
-		Long id = getLong();
-		LOGGER.info("Please enter a Customer ID");
-		Long CustomerID = getLong();
-		LOGGER.info("Please enter the Number of Items you want to add");
-		Long Quantity = getLong();
-		List<Long> ItemIDs = new ArrayList<>();
-		for (int i = 1; i <= Quantity; i++) {
-			LOGGER.info("Please enter the ItemIDs that you wish to add to the order " + i + ": ");
-			ItemIDs.add(Long.valueOf((getInput())));
+List<Order> orders = orderService.readAll();
+
+		
+		
+		LOGGER.info("Please enter the Order ID thay you'd like to update");
+		Long order_id = Long.valueOf(getInput());
+		
+		
+		
+		for (Order i : orders) {
+			Order order = null;
+			while (i.getOrderID() == order_id) {
+				order = i;
+				System.out.println(i);
+				break;
+			}
 		}
 		
-		Order order = orderService.update(new Order(id, CustomerID, Quantity, ItemIDs));
+		
+		LOGGER.info("Please enter the new customer ID for this order");
+		Long customer_id = Long.valueOf(getInput());
+		Order Order = orderService.update(new Order(order_id, customer_id));
 		LOGGER.info("Order Updated");
-		return order;
+		return Order;
 	}
 
 	/**
@@ -143,6 +151,12 @@ public class OrderController implements OrderCrudController<Order> {
 
 	@Override
 	public Order cost() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Order createOrderLine() {
 		// TODO Auto-generated method stub
 		return null;
 	}
