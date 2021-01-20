@@ -53,11 +53,12 @@ public class OrderController implements OrderCrudController<Order> {
 		Long OrderID = order.getOrderID();
 //		arrl.add(order);
 		LOGGER.info("Order " + OrderID + " created ");
-		LOGGER.info("Would you like to add an order to this item");
+		
+		
+		LOGGER.info("Would you like to add an item to this order");
 		String Responce = getInput();
 		
-		
-		while (Responce == "yes") {
+		if (Responce.equals( "yes")) {
 			
 			LOGGER.info("Please enter the number of the Items you want to add");
 			Long Quantity = getLong();
@@ -68,10 +69,10 @@ public class OrderController implements OrderCrudController<Order> {
 				ItemIDs.add(Long.valueOf((getInput())));
 			}
 			 
-			Order orderline =  orderService.create(new Order(OrderID, Quantity, ItemIDs));
+			Order orderline =  orderService.createOrderLine(new Order(OrderID, Quantity, ItemIDs));
 			LOGGER.info("Orderline created");
 			return orderline;
-		}
+		}else 
 		
 			
 		

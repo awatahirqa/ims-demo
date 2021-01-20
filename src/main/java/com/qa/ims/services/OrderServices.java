@@ -3,14 +3,15 @@ package com.qa.ims.services;
 import java.util.List;
 
 import com.qa.ims.persistence.dao.Dao;
+import com.qa.ims.persistence.dao.DaoOrder;
 import com.qa.ims.persistence.dao.OrderDaoMysql;
 import com.qa.ims.persistence.domain.Order;
 
 public class OrderServices implements OrderCrudServices<Order> {
 
-		private Dao<Order> orderDao;
+		private DaoOrder<Order> orderDao;
 		
-		public OrderServices(Dao<Order> orderDao) {
+		public OrderServices(DaoOrder<Order> orderDao) {
 			super ();
 			this.orderDao = orderDao;
 		}

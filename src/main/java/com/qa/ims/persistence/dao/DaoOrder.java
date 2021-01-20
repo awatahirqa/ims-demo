@@ -1,10 +1,9 @@
-package com.qa.ims.services;
+package com.qa.ims.persistence.dao;
 
 import java.util.List;
 
-public interface OrderCrudServices <T>{
+public interface DaoOrder <T> {
 
-	
 	 public List<T> readAll();
 	    
 	    T create(T t);
@@ -21,5 +20,4 @@ public interface OrderCrudServices <T>{
 	    
 	    T cost(T t);
 
-	}
-
+}

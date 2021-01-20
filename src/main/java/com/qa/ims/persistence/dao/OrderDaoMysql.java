@@ -14,7 +14,7 @@ import com.qa.ims.persistence.domain.Order;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-public  class OrderDaoMysql implements Dao<Order> {
+public  class OrderDaoMysql implements DaoOrder<Order> {
 	  
 
 		public static final Logger LOGGER = Logger.getLogger(OrderDaoMysql.class);
@@ -174,8 +174,8 @@ public  class OrderDaoMysql implements Dao<Order> {
 		 * 
 		 * @param id - id of the order
 		 */
-		@Override
-		public void delete(long id) {
+		
+		public void delete(Long id) {
 			try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 					Statement statement = connection.createStatement();) {
 				statement.executeUpdate("delete from orders where id = " + id);
@@ -215,5 +215,13 @@ public  class OrderDaoMysql implements Dao<Order> {
 			// TODO Auto-generated method stub
 			return null;
 		}
+
+		@Override
+		public Order add(Order t) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		
 
 }
