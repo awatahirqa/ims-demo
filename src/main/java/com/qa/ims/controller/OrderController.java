@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.qa.ims.persistence.domain.Item;
 import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.services.CrudServices;
 import com.qa.ims.services.OrderCrudServices;
@@ -16,6 +17,7 @@ public class OrderController implements OrderCrudController<Order> {
 	public static final Logger LOGGER = Logger.getLogger(OrderController.class);
 
 	private OrderCrudServices<Order> orderService;
+	private CrudServices<Item> itemServices;
 
 	public OrderController(OrderServices orderServices) {
 		this.orderService = orderServices;
@@ -47,16 +49,38 @@ public class OrderController implements OrderCrudController<Order> {
 	public Order create() {
 		LOGGER.info("Please enter a Customer ID");
 		Long CustomerID = getLong();
-		LOGGER.info("Please enter a OrderLineID");
-		Long OrdeLineID = getLong();
-		Order order = orderService.create(new Order(CustomerID,OrdeLineID));
-		return order;
+		Order order = orderService.create(new Order(CustomerID));
+		Long OrderID = order.getOrderID();
+//		arrl.add(order);
+		LOGGER.info("Order " + OrderID + " created ");
+		LOGGER.info("Would you like to add an order to this item");
+		String Responce = getInput();
+		
+		
+		while (Responce == "yes") {
+			
+			LOGGER.info("Please enter the number of the Items you want to add");
+			Long Quantity = getLong();
+			List<Long> ItemIDs = new ArrayList<>();
+			LOGGER.info("Please enter the itemIDs you want to add");
+				for (int i = 1; i <= Quantity; i++) {
+					LOGGER.info("Please enter the ID number of the items you would like to add " + i + ": ");
+				ItemIDs.add(Long.valueOf((getInput())));
+			}
+			 
+			Order orderline =  orderService.create(new Order(OrderID, Quantity, ItemIDs));
+			LOGGER.info("Orderline created");
+			return orderline;
 		}
 		
+			
+		
+		return null;
+	}
     
 	public Order createOrderLine() {
-		LOGGER.info("Please enter a OrderLineID");
-		Long OrdeLineID = getLong();
+		LOGGER.info("Please enter the OrderID of the order you would like to update");
+		Long OrderID = getLong();
 		LOGGER.info("Please enter the number of the Items you want to add");
 		Long Quantity = getLong();
 		List<Long> ItemIDs = new ArrayList<>();
@@ -66,7 +90,7 @@ public class OrderController implements OrderCrudController<Order> {
 			ItemIDs.add(Long.valueOf((getInput())));
 		}
 		 
-		Order orderline =  orderService.createOrderLine(new Order( OrdeLineID, Quantity, ItemIDs));
+		Order orderline =  orderService.create(new Order(OrderID, Quantity, ItemIDs));
 		LOGGER.info("Orderline created");
 		return orderline;
 	}
@@ -80,8 +104,6 @@ public class OrderController implements OrderCrudController<Order> {
 		Long id = getLong();
 		LOGGER.info("Please enter a Customer ID");
 		Long CustomerID = getLong();
-		LOGGER.info("Please enter a OrderLineID");
-		Long OrderLineID = getLong();
 		LOGGER.info("Please enter the Number of Items you want to add");
 		Long Quantity = getLong();
 		List<Long> ItemIDs = new ArrayList<>();
@@ -90,7 +112,7 @@ public class OrderController implements OrderCrudController<Order> {
 			ItemIDs.add(Long.valueOf((getInput())));
 		}
 		
-		Order order = orderService.update(new Order(id, CustomerID, OrderLineID, Quantity, ItemIDs));
+		Order order = orderService.update(new Order(id, CustomerID, Quantity, ItemIDs));
 		LOGGER.info("Order Updated");
 		return order;
 	}

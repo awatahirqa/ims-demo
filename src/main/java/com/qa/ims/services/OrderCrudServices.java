@@ -15,7 +15,6 @@ public interface OrderCrudServices <T>{
 	 
 	    void delete(Long id);
 	    
-	   T createOrderLine(T t);
 	    
 	    void deleteItem(Long orderid, Long itemid);
 	    

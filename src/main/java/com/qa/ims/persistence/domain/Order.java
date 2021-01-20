@@ -25,13 +25,13 @@ public class Order {
 		
 	}
 	//Order Constructor 
-	public Order(Long CustomerID, Long OrderLineID) {
+	public Order(Long CustomerID) {
 		this.CustomerID = CustomerID;
 		
 		
 	}
-	public Order(Long ID, Long CustomerID, Long OrderLineID) {
-		this.OrderID = ID;
+	public Order(Long OrderID, Long CustomerID) {
+		this.OrderID = OrderID;
 		this.CustomerID = CustomerID;
 		
 		
@@ -44,11 +44,11 @@ public class Order {
 		
 	}
 	
-	public Long getID() {
+	public Long getOrderID() {
 		return OrderID;
 	}
 
-	public void setID(Long ID) {
+	public void setOrderID(Long ID) {
 		this.OrderID = ID;
 	}
 
