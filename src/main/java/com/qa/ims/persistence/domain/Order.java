@@ -12,6 +12,9 @@ public class Order {
 	private ArrayList<Item> ItemIDs = new ArrayList<>();
 	private Integer Quantity;
 	private Item itemIDs ;
+	private Long IDitem;
+
+	
 
 	public Order(Long CustomerID,ArrayList<Item> ItemIDs,Integer Quantity) {
 		this.CustomerID = CustomerID;
@@ -92,11 +95,17 @@ public class Order {
 	public void setItemIDs(Item itemIDs) {
 		this.itemIDs = itemIDs;
 	}
+	public Long getIDitem() {
+		return IDitem;
+	}
 
+	public void setIDitem(Long iDitem) {
+		IDitem = iDitem;
+	}
 	
 	@Override
 	public String toString() {
-		return "Order [ID =" + OrderID + ", CustomerID =" + CustomerID + "," + "Cost =" + Cost + ", ItemIDs =" + ItemIDs
+		return "Order [ID =" + OrderID + ", CustomerID =" + CustomerID + "," + "Cost =" + Cost + ", ItemIDs =" + IDitem
 				+ ", quantity =" + Quantity + "]";
 	}
 

@@ -119,7 +119,7 @@ public class ItemDaoMysql implements Dao<Item> {
 		public Item update(Item item) {
 			try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 					Statement statement = connection.createStatement();) {
-				statement.executeUpdate("update item set item_name ='" + item.getIName() + "', price ='"
+				statement.executeUpdate("update item set ='" + item.getIName() + "', price ='"
 						+ item.getPrice() + "' where id =" + item.getId());
 				return readCustomer(item.getId());
 			} catch (Exception e) {
@@ -143,6 +143,20 @@ public class ItemDaoMysql implements Dao<Item> {
 				LOGGER.debug(e.getStackTrace());
 				LOGGER.error(e.getMessage());
 			}
+		}
+
+		
+
+		@Override
+		public Item updateOrderline(Item t) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Item createOrderLine(Item t) {
+			// TODO Auto-generated method stub
+			return null;
 		}
 
 	}

@@ -61,24 +61,28 @@ public class OrderController implements OrderCrudController<Order> {
 
 		while (!loop) {
 			LOGGER.info("Please enter ITEM ID");
-			Long item_id = Long.valueOf(getInput());
+			Long itemID = Long.valueOf(getInput());
 			LOGGER.info("Please enter the Quantity of the ITEM that you'd like");
 			Integer quantity = Integer.valueOf(getInput());
 
 			for (Item i : items) {
-				if (i.getId() == item_id) {
+				if (i.getId() == itemID) {
 					item = i;
 					LOGGER.info("You have added" +  " " + quantity +" " + "of the below Item" );
 					System.out.println(i);
 					break;
 				}
+			}
 			
-				System.out.println(item);
+				order.setOrderID(OrderID);
 				order.setItemIDs(item);
+				order.setIDitem(item.getId());
+				LOGGER.info(item.getId());
 				int cost = (int) (item.getPrice() * quantity);
 				order.setQuantity(quantity);
 				order.setCost(cost);
-				order = orderService.addItem(order);
+				LOGGER.info(order);
+				order = orderService.createOrderLine(order);
 				LOGGER.info("ADD: To add another Item to the order ");
 				LOGGER.info("RETURN: TO EXIT ");
 				Escape = getInput().toLowerCase();
@@ -88,10 +92,10 @@ public class OrderController implements OrderCrudController<Order> {
 
 			}
 			LOGGER.info("Order Created");
-			
+		return order;	
 	}
-		return order;
-	}
+		
+	
     
 
 	/**

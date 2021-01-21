@@ -186,9 +186,11 @@ public  class OrderDaoMysql implements Dao<Order> {
 		public Order createOrderLine(Order order) {
 			try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 					Statement statement = connection.createStatement();) {
-				statement.executeUpdate("INSERT INTO orderline(OrderID, itemID, quantity) values('" + order.getOrderID() + "','"
-						+ order.getItemID() + "','"
-						+ order.getQuantity() + "')");
+				statement.executeUpdate("INSERT INTO orderline(item_id,order_id, cost, quantity) values("
+					    + order.getIDitem() + ","
+						+ order.getOrderID() + ","
+						+ order.getCost() + ","
+						+ order.getQuantity() + ")");
 				return readLatest();
 			} catch (Exception e) {
 				LOGGER.debug(e.getStackTrace());
@@ -209,6 +211,14 @@ public  class OrderDaoMysql implements Dao<Order> {
 		}
 		
 		public Order cost(Order t) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		
+
+		@Override
+		public Order updateOrderline(Order t) {
 			// TODO Auto-generated method stub
 			return null;
 		}

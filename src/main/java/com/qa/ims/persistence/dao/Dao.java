@@ -15,6 +15,9 @@ public interface Dao<T> {
      
     void delete(long id);
     
+    T createOrderLine(T t);
+    
+    T updateOrderline(T t);
 
 	/**
 	 * Reads all customers from the database

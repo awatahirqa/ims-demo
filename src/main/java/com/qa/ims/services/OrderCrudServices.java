@@ -8,7 +8,9 @@ public interface OrderCrudServices <T>{
 	 public List<T> readAll();
 	    
 	    T create(T t);
-	     
+	    
+	    T createOrderLine(T t);
+	    
 	    T addItem(T t);
 	    
 	    T update(T t);

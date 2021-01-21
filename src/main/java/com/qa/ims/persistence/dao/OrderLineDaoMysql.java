@@ -118,4 +118,18 @@ public class OrderLineDaoMysql implements Dao<OrderLine> {
 				LOGGER.error(e.getMessage());
 			}
 		}
+
+		
+
+		@Override
+		public OrderLine updateOrderline(OrderLine t) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public OrderLine createOrderLine(OrderLine t) {
+			// TODO Auto-generated method stub
+			return null;
+		}
 }
