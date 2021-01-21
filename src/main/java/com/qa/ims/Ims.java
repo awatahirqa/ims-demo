@@ -41,11 +41,18 @@ public class Ims {
 		String password = Utils.getInput(); 
 
 		init(username, password);
-
+		boolean stop = false;
+		
+		do {
 		LOGGER.info("Which entity would you like to use?");
 		Domain.printDomains();
-
+		
 		Domain domain = Domain.getDomain();
+		if(domain.name().equals("STOP")) {
+			LOGGER.info("Thank you for using this application,Goodbye");
+			System.exit(0);
+		}
+
 		LOGGER.info("What would you like to do with " + domain.name().toLowerCase() + ":");
 
 		Action.printActions();
@@ -69,18 +76,20 @@ public class Ims {
 			new ItemServices(new ItemDaoMysql(username, password)));
 			doOrderAction(orderController, action);
 			break;
-		case ORDERLINE:
-			OrderLineController orderlineController = new OrderLineController(
-				 new OrderLineServices(new OrderLineDaoMysql(username, password)));
-			doAction(orderlineController, action);
-			break;
 		case STOP:
+			stop = true;
 			break;
 		default:
 			break;
+		} 
+		
 		}
-
+		while (!stop);
+		LOGGER.info("GOODBYE");
+		
 	}
+		
+	
 
 	public void doAction(CrudController<?> crudController, Action action) {
 		switch (action) {
