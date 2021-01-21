@@ -18,10 +18,10 @@ public class OrderServicesTest {
 	
 	@InjectMocks
 	private OrderServices orderServices;
-	
+	 
 	@Test
 	public void orderServicesCreate() {
-		Order order = new Order(1L, 1L);
+		Order order = new Order(1L, 1L,2,2000);
 		orderServices.create(order);
 		Mockito.verify(orderDao, Mockito.times(1)).create(order);
 	}
@@ -34,13 +34,13 @@ public class OrderServicesTest {
 	
 	@Test
 	public void orderServicesUpdate() {
-		Order order= new Order(1L, 1L);
+		Order order= new Order(1L, 1L,2,2000);
 		orderServices.update(order);
 		Mockito.verify(orderDao, Mockito.times(1)).update(order);
 	}
 	
 	@Test
-	public void itemServicesDelete() {
+	public void orderServicesDelete() {
 		orderServices.delete(1L);;
 		Mockito.verify(orderDao, Mockito.times(1)).delete(1L);
 	}

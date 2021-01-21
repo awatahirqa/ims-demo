@@ -16,22 +16,27 @@ public class OrderTest {
 	
 	@Before
 	public void setUp() {
-		order = new Order(1L, 1L, 1L);
-		other = new Order(1L, 2L, 2L);
+		order = new Order(1L, 1L,2,2000);
+		other = new Order(1L, 2L,2,2000);
 	}
 	
 	@Test
 	public void settersTest() {
-		assertNotNull(order.getId());
-		assertNotNull(order.getCustomerID());
-		assertNotNull(order.getOrderLineID());
+		assertNotNull(order.getOrderID());
+		assertNotNull(order.getIDitem());
+		assertNotNull(order.getQuantity());
+		assertNotNull(order.getCost());
 		
-		order.setId(null);
-		assertNull(order.getId());
-		order.setCustomerID(null);
-		assertNull(order.getCustomerID());
-		order.setOrderLineID(null);
-		assertNull(order.getOrderLineID());
+		order.setOrderID(null);
+		assertNull(order.getOrderID());
+		order.setIDitem(null);
+		assertNull(order.getIDitem());
+		order.setQuantity(null);
+		assertNull(order.getQuantity());
+		order.setCost(null);
+		assertNull(order.getCost());
+		
+		
 		
 	}
 	
@@ -47,9 +52,9 @@ public class OrderTest {
 	
 	@Test
 	public void createOrderWithId() {
-		assertEquals(1L, order.getId(), 0);
-		assertEquals(1L, order.getCustomerID(),0);
-		assertEquals(1L, order.getOrderLineID(),0);
+		assertEquals(1L, order.getOrderID(), 0);
+		assertEquals(2, order.getQuantity(),0);
+		assertEquals(2000, order.getCost(),0);
 	}
 	
 	@Test
@@ -63,68 +68,87 @@ public class OrderTest {
 	}
 	
 	@Test
-	public void customerIDNullButOtherIDNotNull() {
-		order.setCustomerID(null);
+	public void ItemIDNullButOtherIDNotNull() {
+		order.setIDitem(null);
 		assertFalse(order.equals(other));
 	}
 	
 	@Test
-	public void customerIDsNotEqual() {
-		other.setCustomerID((long) 3);
+	public void IditemNotEqual() {
+		other.setIDitem(1L);
 		assertFalse(order.equals(other));
 	}
 	
 	@Test
-	public void checkEqualityBetweenDifferentObjectsNullCustomerID() {
-		order.setCustomerID(null);
-		other.setCustomerID(null);
+	public void checkEqualityBetweenDifferentObjectsNullIDitem() {
+		order.setIDitem(null);
+		other.setIDitem(null);
 		assertTrue(order.equals(other));
 	}
 	
 	@Test
-	public void nullId() {
-		order.setId(null);
+	public void nullOrderId() {
+		order.setOrderID(null);
 		assertFalse(order.equals(other));
 	}
 	
 	@Test
-	public void nullIdOnBoth() {
-		order.setId(null);
-		other.setId(null);
+	public void nullOrderIdOnBoth() {
+		order.setOrderID(null);
+		other.setOrderID(null);
 		assertTrue(order.equals(other));
 	}
 	
 	@Test
-	public void otherIdDifferent() {
-		other.setId(2L);
+	public void otherIDDifferent() {
+		other.setOrderID(4L);
 		assertFalse(order.equals(other));
 	}
 	
 	@Test
-	public void nullOrderLineID() {
-		order.setOrderLineID(null);
+	public void nullQuantity() {
+		order.setQuantity(null);
 		assertFalse(order.equals(other));
 	}
 	
 	@Test
-	public void nullOrderLineIDOnBoth() {
-		order.setOrderLineID(null);
-		other.setOrderLineID(null);
+	public void nullQuantityOnBoth() {
+		order.setQuantity(null);
+		other.setQuantity(null);
 		assertTrue(order.equals(other));
 	}
 	
 	@Test
-	public void otherOrderLineIDDifferent() {
-		other.setOrderLineID(3L);
+	public void otherQuantityDifferent() {
+		other.setQuantity(3);
+		assertFalse(order.equals(other));
+	}
+	@Test
+	public void nullCost() {
+		order.setCost(null);
 		assertFalse(order.equals(other));
 	}
 	
 	@Test
-	public void constructorWithoutId() {
-		Order order = new Order(1L, 1L);
-		assertNull(order.getId());
-		assertNotNull(order.getCustomerID());
-		assertNotNull(order.getOrderLineID());
+	public void nullCostOnBoth() {
+		order.setQuantity(null);
+		other.setQuantity(null);
+		assertTrue(order.equals(other));
+	}
+	
+	@Test
+	public void otherCostDifferent() {
+		other.setQuantity(3);
+		assertFalse(order.equals(other));
+	}
+	
+	
+	@Test
+	public void constructorWithoutOrderId() {
+		Order order = new Order(1L, 2,2000);
+		assertNotNull(order.getIDitem());
+		assertNotNull(order.getQuantity());
+		assertNull(order.getCost()); 
 	}
 	
 	@Test
@@ -140,7 +164,8 @@ public class OrderTest {
 	
 	@Test
 	public void toStringTest() {
-		String toString = "id:1 CustomerID" + 1 + "OrderLineID" + 1;
-		assertEquals(toString, order.toString());
+		String tostring = "Order [ID = 1  , CustomerID = null  ,ItemIDs = 1,"
+				+ " quantity = 2 Cost =  2000 ";
+		assertEquals(tostring, order.toString());
 	}
 }

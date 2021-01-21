@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.persistence.domain.Item;
 import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.services.CrudServices;
@@ -54,7 +55,7 @@ public class OrderController implements OrderCrudController<Order> {
 		Long OrderID = order.getOrderID();
 		List<Item> items = itemServices.readAll();
 		Item item = null;
-		LOGGER.info("Would you like to add an order to this item");
+		LOGGER.info("add an item to this order");
 		Boolean loop = false;
 		String Escape = "";
 		
@@ -103,30 +104,13 @@ public class OrderController implements OrderCrudController<Order> {
 	 */
 	@Override
 	public Order update() {
-List<Order> orders = orderService.readAll();
-
-		
-		
-		LOGGER.info("Please enter the Order ID thay you'd like to update");
-		Long order_id = Long.valueOf(getInput());
-		
-		
-		
-		for (Order i : orders) {
-			Order order = null;
-			while (i.getOrderID() == order_id) {
-				order = i;
-				System.out.println(i);
-				break;
-			}
-		}
-		
-		
-		LOGGER.info("Please enter the new customer ID for this order");
-		Long customer_id = Long.valueOf(getInput());
-		Order Order = orderService.update(new Order(order_id, customer_id));
-		LOGGER.info("Order Updated");
-		return Order;
+		LOGGER.info("Please enter the id of the order you would like to update");
+		Long OrderID = Long.valueOf(getInput());
+		LOGGER.info("Please enter a CustomerID");
+		Long CustomerID = getLong();
+		Order order = orderService.update(new Order(OrderID, CustomerID ));
+		LOGGER.info("Customer Updated");
+		return order;
 	}
 
 	/**
@@ -139,18 +123,66 @@ List<Order> orders = orderService.readAll();
 		orderService.delete(id);
 	}
 
-	@Override
+	
 	public Order add() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		LOGGER.info("add an ITEM to an exisiting order");
+		List<Order> orders = orderService.readAll(); 
+	
+		
+		List<Item> items = itemServices.readAll();
+		Item item = null;
+			
+			LOGGER.info("Please enter the Order ID thay you'd like to update");
+			Long order_id = Long.valueOf(getInput());
+			
+			Order order = new Order(order_id);
+			order = orderService.create(order);
+
+
+			
+			LOGGER.info("Please enter ITEM ID you'd like to add");
+			Long item_id = Long.valueOf(getInput());
+			
+			LOGGER.info("Please enter the Quantity of the ITEM that you'd like");
+			Integer quantity = Integer.valueOf(getInput());
+
+			
+			order.setOrderID(order_id);
+			order.setIDitem(item.getId());
+			int cost = (int) (item.getPrice() * quantity);
+			order.setQuantity(quantity);
+			order.setCost(cost);
+			order = orderService.addItem(order);
+			
+			return order;
 	}
 
 
 
 	@Override
 	public void deleteItem() {
-		// TODO Auto-generated method stub
 		
+		LOGGER.info("Delete an ITEM from an exisiting order"); 
+	
+		
+		LOGGER.info("Please enter the Order ID thay you'd like to update");
+		Long OrderID = Long.valueOf(getInput());
+		List<Order> orders = orderService.readAll();
+		for (Order i : orders) {
+			Order order = null;
+			while (i.getOrderID() == OrderID) {
+				order = i;
+				System.out.println(i);
+				break;
+			}
+			LOGGER.info("SELECT ITEM to delete from ORDER");
+			Long IDitem = Long.valueOf(getInput());
+			LOGGER.info("Item has been Deleted");
+			orderService.delete(IDitem);
+
+			break;
+}
 	}
 
 	@Override

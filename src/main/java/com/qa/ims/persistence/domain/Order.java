@@ -16,6 +16,24 @@ public class Order {
 
 	
 
+	public Order(Long orderID, Long iDitem , Integer quantity, Integer cost ) {
+		super();
+		OrderID = orderID;
+		IDitem = iDitem;
+		Quantity = quantity;
+		Cost = cost;
+		
+		
+	}
+	public Order( Long iDitem , Integer quantity, Integer cost ) {
+		super();
+		IDitem = iDitem;
+		Quantity = quantity;
+		Cost = cost;
+		
+		
+	}
+
 	public Order(Long CustomerID,ArrayList<Item> ItemIDs,Integer Quantity) {
 		this.CustomerID = CustomerID;
 		this.ItemIDs = ItemIDs;
@@ -105,8 +123,8 @@ public class Order {
 	
 	@Override
 	public String toString() {
-		return "Order [ID =" + OrderID + ", CustomerID =" + CustomerID + "," + "Cost =" + Cost + ", ItemIDs =" + IDitem
-				+ ", quantity =" + Quantity + "]";
+		return "Order [ID =" + OrderID + ", CustomerID =" + CustomerID + "," +  ", ItemIDs =" + IDitem
+				+ ", quantity =" + Quantity + "Cost =" + Cost +"]";
 	}
 
 	@Override

@@ -95,7 +95,7 @@ public class ItemDaoMysql implements Dao<Item> {
 			return null;
 		}
 
-		public Item readCustomer(Long id) {
+		public Item readItem(Long id) {
 			try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 					Statement statement = connection.createStatement();
 					ResultSet resultSet = statement.executeQuery("SELECT FROM item where id = " + id);) {
@@ -121,7 +121,7 @@ public class ItemDaoMysql implements Dao<Item> {
 					Statement statement = connection.createStatement();) {
 				statement.executeUpdate("update item set ='" + item.getIName() + "', price ='"
 						+ item.getPrice() + "' where id =" + item.getId());
-				return readCustomer(item.getId());
+				return readItem(item.getId());
 			} catch (Exception e) {
 				LOGGER.debug(e.getStackTrace());
 				LOGGER.error(e.getMessage());

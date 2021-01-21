@@ -27,22 +27,24 @@ public class OrderControllerTest {
 
 @Test
 	public void readAllTest() {
-		OrderController orderController = new OrderController(orderServices);
+		OrderController orderController = new OrderController(orderServices,null);
 		List<Order> orders = new ArrayList<>();
-		orders.add(new Order(1L, 1L));
-		orders.add(new Order(2L, 3L));
-		orders.add(new Order(2L, 5L));
+		orders.add(new Order(1L, 1L,2,1000));
+		orders.add(new Order(2L, 3L,3,3000));
+		orders.add(new Order(2L, 5L,4,4000));
 		Mockito.when(orderServices.readAll()).thenReturn(orders);
 		assertEquals(orders, orderController.readAll());
 	}
 
 	@Test
 	public void createTest() {
-		Long CustomerID = 1L;
-		Long OrderLineID = 4L;
-		Mockito.doReturn(CustomerID, OrderLineID).when(orderController).getLong();
-		Order order = new Order(CustomerID, OrderLineID);
-		Order savedOrder = new Order(1L, 1L, 4L);
+		Long OrderID = 1L;
+		Long IDitem = 4L;
+		Integer Quantity = 4;
+		Integer Cost = 4000;
+		Mockito.doReturn(OrderID, IDitem,Quantity,Cost).when(orderController).getInput();
+		Order order = new Order(OrderID, IDitem,Quantity,Cost);
+		Order savedOrder = new Order(1L, 1L, 4,4000);
 		Mockito.when(orderServices.create(order)).thenReturn(savedOrder);
 		assertEquals(savedOrder, orderController.create());
 	}
@@ -51,11 +53,12 @@ public class OrderControllerTest {
 	 
 	@Test
 	public void updateTest() {
-		Long id = 1L;
-		Long CustomerID = 2L;
-		Long OrderLineID = 7L;
-		Mockito.doReturn(id, CustomerID, OrderLineID).when(orderController).getLong();
-		Order order = new Order(1L, CustomerID, OrderLineID);
+		Long OrderID = 1L;
+		Long IDitem = 4L;
+		Integer Quantity = 4;
+		Integer Cost = 4000;
+		Mockito.doReturn(OrderID, IDitem,Quantity,Cost).when(orderController).getInput();
+		Order order = new Order(1L, 1L, 4,4000);
 		Mockito.when(orderServices.update(order)).thenReturn(order);
 		assertEquals(order, orderController.update());
 	}

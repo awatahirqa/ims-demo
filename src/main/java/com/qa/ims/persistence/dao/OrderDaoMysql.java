@@ -203,7 +203,7 @@ public  class OrderDaoMysql implements Dao<Order> {
 			// TODO Auto-generated method stub
 			try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 					Statement statement = connection.createStatement();) {
-				statement.executeUpdate("delete from orderline where OrderID = '" + orderid + "' AND itemID = '" + itemid + "'");
+				statement.executeUpdate("delete from orderline where order_id = '" + orderid + "' AND item_id = '" + itemid + "'");
 			} catch (Exception e) {
 				LOGGER.debug(e.getStackTrace());
 				LOGGER.error(e.getMessage());
@@ -218,9 +218,20 @@ public  class OrderDaoMysql implements Dao<Order> {
 		
 
 		@Override
-		public Order updateOrderline(Order t) {
-			// TODO Auto-generated method stub
+		public Order updateOrderline(Order order) {
+			try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
+					Statement statement = connection.createStatement();) {
+				statement.executeUpdate("INSERT INTO orderline(item_id,order_id, cost, quantity) values("
+					    + order.getIDitem() + ","
+						+ order.getOrderID() + ","
+						+ order.getCost() + ","
+						+ order.getQuantity() + ")");
+				return readLatest();
+			} catch (Exception e) {
+				LOGGER.debug(e.getStackTrace());
+				LOGGER.error(e.getMessage());
+			}
 			return null;
 		}
-
+			
 }
