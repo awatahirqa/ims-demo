@@ -4,16 +4,16 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class ActionTest {
+public class OrderActionTest {
 	@Test
 	public void CREATETest() {
-		Action action = Action.CREATE;
+		OrderAction action = OrderAction.CREATE;
 		assertTrue(action.getDescription().toLowerCase().contains("create"));
 	}
 	
 	@Test
 	public void ReadTest() {
-		Action action = Action.READ;
+		OrderAction action = OrderAction.READ;
 		assertTrue(action.getDescription().toLowerCase().contains("read"));
 	}
 
@@ -21,20 +21,19 @@ public class ActionTest {
 	
 	@Test
 	public void UpdateTest() {
-		Action action = Action.UPDATE;
+		OrderAction action = OrderAction.UPDATE;
 		assertTrue(action.getDescription().toLowerCase().contains("update"));
 	}
 	
 	@Test
 	public void DeleteTest() {
-		Action action = Action.DELETE;
+		OrderAction action = OrderAction.DELETE;
 		assertTrue(action.getDescription().toLowerCase().contains("delete"));
 	}
 	
 	@Test
 	public void ReturnTest() {
-		Action action = Action.RETURN;
+		OrderAction action = OrderAction.RETURN;
 		assertTrue(action.getDescription().toLowerCase().contains("return"));
 	}
-
 }

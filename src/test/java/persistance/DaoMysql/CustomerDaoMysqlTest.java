@@ -52,12 +52,12 @@ public void setup() {
 @Test
 public void createTest() {
 	CustomerDaoMysql customerDaoMysql = new CustomerDaoMysql(jdbcConnectionUrl, username, password);
-	String fn = "Jim";
-	String sn = "Bean";
-	Customer customer = new Customer(null ,fn, sn);
-	Customer savedCustomer = new Customer(null, fn, sn);
+	String firstName = "Jim";
+	String surname = "Bean";
+	Customer customer = new Customer( firstName, surname);
+	Customer savedCustomer = new Customer(3L, firstName, surname);
 	customer = customerDaoMysql.create(customer);
-	customer.setId(null);
+	//customer.setId(null);
 	assertEquals(savedCustomer, customer);
 
 }
@@ -65,10 +65,10 @@ public void createTest() {
 @Test
 public void readTest() {
 	CustomerDaoMysql customerDaoMysql = new CustomerDaoMysql(jdbcConnectionUrl, username, password);
-	String fn = "Jim";
-	String sn = "Bean";
-	Customer customer = new Customer(null ,fn, sn);
-	Customer savedCustomer = new Customer(null, fn, sn);
+	String firstName = "Jim";
+	String surname = "Bean";
+	Customer customer = new Customer(null ,firstName, surname);
+	Customer savedCustomer = new Customer(null, firstName, surname);
 	customer = customerDaoMysql.create(customer);
 	customer.setId(null);
 	customerDaoMysql.readCustomer(null);
@@ -77,9 +77,9 @@ public void readTest() {
 @Test
 public void updateTest() {
 	CustomerDaoMysql customerDaoMysql = new CustomerDaoMysql(jdbcConnectionUrl, username, password);
-	String fn = "Jim";
-	String sn = "Bean";
-	Customer customer = new Customer(null, fn, sn);
+	String firstName = "Jim";
+	String surname = "Bean";
+	Customer customer = new Customer(null, firstName, surname);
 	Customer savedCustomer = new Customer(null, "Jim", "Bean");
 	customer = customerDaoMysql.create(customer);
 	customerDaoMysql.update(customer);
@@ -91,10 +91,10 @@ public void updateTest() {
 @Test
 public void readAllTest() {
 	CustomerDaoMysql customerDaoMysql = new CustomerDaoMysql(jdbcConnectionUrl, username, password);
-	String fn = "Jim";
-	String sn = "Bean";
-	Customer customer = new Customer(1l, fn, sn);
-	Customer savedCustomer = new Customer(1l, fn, sn);
+	String firstName = "Jim";
+	String surname = "Bean";
+	Customer customer = new Customer(1l, firstName, surname);
+	Customer savedCustomer = new Customer(1l, firstName, surname);
 	List<Customer> customers = new ArrayList<>();
 	customers.add(customer);
 	customers.add(savedCustomer);
@@ -107,10 +107,10 @@ public void readAllTest() {
 public void deleteTest() {
 	CustomerDaoMysql customerDaoMysql = new CustomerDaoMysql(jdbcConnectionUrl, username, password);
 	Long id = 1L;
-	String fn = "Jim";
-	String sn = "Bean";
-	Customer customer = new Customer(1l, fn, sn);
-	Customer savedCustomer = new Customer(1l, fn, sn);
+	String firstName = "Jim";
+	String surname = "Bean";
+	Customer customer = new Customer(1l, firstName, surname);
+	Customer savedCustomer = new Customer(1l, firstName, surname);
 	List<Customer> customers = new ArrayList<>();
 	customers.add(customer);
 	customers.add(savedCustomer);

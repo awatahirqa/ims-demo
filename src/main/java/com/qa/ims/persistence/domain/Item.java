@@ -35,7 +35,7 @@ public class Item {
 	}
 
 	public double getPrice() {
-		return price;
+		return price ;
 	}
 
 	public void setPrice(Double price) {

@@ -68,6 +68,12 @@ public class Order {
 		
 	}
 	
+	public Order(String order_id, String iDitem2, String quantity2, String cost2) {
+		// TODO Auto-generated constructor stub
+	}
+	public Order(Long order_id, Long iDitem2, Long quantity2, Long cost2) {
+		// TODO Auto-generated constructor stub
+	}
 	public Long getOrderID() {
 		return OrderID;
 	}
@@ -123,8 +129,8 @@ public class Order {
 	
 	@Override
 	public String toString() {
-		return "Order [ID =" + OrderID + ", CustomerID =" + CustomerID + "," +  ", ItemIDs =" + IDitem
-				+ ", quantity =" + Quantity + "Cost =" + Cost +"]";
+		return "Order [ID = " + OrderID + ", CustomerID =" + CustomerID  +  ", ItemIDs =" + IDitem
+				+ ", quantity =" + Quantity + " Cost =" + Cost +"]";
 	}
 
 	@Override

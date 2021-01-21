@@ -28,8 +28,8 @@ public class ItemTest {
 		assertNull(item.getId());
 		item.setIName(null);
 		assertNull(item.getIName());
-		item.setPrice(null);
-		assertNull(item.getPrice());
+		//item.setPrice(null);
+		//assertNull(item.getPrice());
 		
 	}
 	
@@ -138,7 +138,7 @@ public class ItemTest {
 	
 	@Test
 	public void toStringTest() {
-		String toString = "id:1 item name:Samsung Galaxy S6 price:" + 899.99;
+		String toString = "id:1 Item name:Samsung Galaxy S6 price:£" + 899.99;
 		assertEquals(toString, item.toString());
 	}
 }
