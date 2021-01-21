@@ -14,6 +14,9 @@ public interface OrderCrudServices <T>{
 	    T addItem(T t);
 	    
 	    T update(T t);
+	    
+	    T updateOrderLine(T t);
+	    
 	 
 	    void delete(Long id);
 	    

@@ -53,6 +53,11 @@ public class OrderServices implements OrderCrudServices<Order> {
 			return null;
 		}
 
+		@Override
+		public Order updateOrderLine(Order order) {
+			return orderDao.updateOrderLine(order);
+		}
+
 		
 
 

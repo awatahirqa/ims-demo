@@ -17,7 +17,7 @@ public interface Dao<T> {
     
     T createOrderLine(T t);
     
-    T updateOrderline(T t);
+    T updateOrderLine(T t);
 
 	/**
 	 * Reads all customers from the database

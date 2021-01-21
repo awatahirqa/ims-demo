@@ -54,10 +54,10 @@ public void createTest() {
 	CustomerDaoMysql customerDaoMysql = new CustomerDaoMysql(jdbcConnectionUrl, username, password);
 	String fn = "Jim";
 	String sn = "Bean";
-	Customer customer = new Customer(1l ,fn, sn);
-	Customer savedCustomer = new Customer(1l, fn, sn);
+	Customer customer = new Customer(null ,fn, sn);
+	Customer savedCustomer = new Customer(null, fn, sn);
 	customer = customerDaoMysql.create(customer);
-	customer.setId(1l);
+	customer.setId(null);
 	assertEquals(savedCustomer, customer);
 
 }
@@ -67,11 +67,11 @@ public void readTest() {
 	CustomerDaoMysql customerDaoMysql = new CustomerDaoMysql(jdbcConnectionUrl, username, password);
 	String fn = "Jim";
 	String sn = "Bean";
-	Customer customer = new Customer(1l ,fn, sn);
-	Customer savedCustomer = new Customer(1l, fn, sn);
+	Customer customer = new Customer(null ,fn, sn);
+	Customer savedCustomer = new Customer(null, fn, sn);
 	customer = customerDaoMysql.create(customer);
-	customer.setId(1l);
-	customerDaoMysql.readCustomer(1l);
+	customer.setId(null);
+	customerDaoMysql.readCustomer(null);
 	assertEquals(savedCustomer, customer);
 }
 @Test
@@ -79,11 +79,11 @@ public void updateTest() {
 	CustomerDaoMysql customerDaoMysql = new CustomerDaoMysql(jdbcConnectionUrl, username, password);
 	String fn = "Jim";
 	String sn = "Bean";
-	Customer customer = new Customer(1l, fn, sn);
-	Customer savedCustomer = new Customer(1l, "Jim", "Bean");
+	Customer customer = new Customer(null, fn, sn);
+	Customer savedCustomer = new Customer(null, "Jim", "Bean");
 	customer = customerDaoMysql.create(customer);
 	customerDaoMysql.update(customer);
-	customer.setId(1l);
+	customer.setId(null);
 	assertEquals(savedCustomer, customer);
 
 }
@@ -106,17 +106,16 @@ public void readAllTest() {
 @Test
 public void deleteTest() {
 	CustomerDaoMysql customerDaoMysql = new CustomerDaoMysql(jdbcConnectionUrl, username, password);
+	Long id = 1L;
 	String fn = "Jim";
 	String sn = "Bean";
 	Customer customer = new Customer(1l, fn, sn);
 	Customer savedCustomer = new Customer(1l, fn, sn);
-	customerDaoMysql.create(customer);
-	customer.setId(null);
-	customerDaoMysql.delete(1L);
-	assertNotSame(customer, savedCustomer);
-	assertNull(customer);
+	List<Customer> customers = new ArrayList<>();
+	customers.add(customer);
+	customers.add(savedCustomer);
+	customerDaoMysql.delete(id);
 }
-
 
 @After
 public void clean() {

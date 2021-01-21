@@ -146,13 +146,13 @@ public class CustomerDaoMysql implements Dao<Customer> {
 	
 
 	@Override
-	public Customer updateOrderline(Customer t) {
+	public Customer createOrderLine(Customer t) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Customer createOrderLine(Customer t) {
+	public Customer updateOrderLine(Customer t) {
 		// TODO Auto-generated method stub
 		return null;
 	}

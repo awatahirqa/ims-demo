@@ -12,13 +12,8 @@ public interface OrderCrudController<T> {
 	    
 	    T update();
 	    
-	    T add();
 	     
 	    void delete();
-	    
-	    void deleteItem();
-	    
-	    T createOrderLine();
 	    
 	    T cost();
 }

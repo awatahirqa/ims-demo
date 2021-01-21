@@ -87,7 +87,7 @@ public class OrderDaoMysqlTest {
 		orderDaoMysqlTest.readAll();
 		assertEquals(savedOrder, order);
 		
-	}
+	} 
 	@Test
 	public void deleteTest() {
 		OrderDaoMysql orderDaoMysqlTest = new OrderDaoMysql(jdbcConnectionUrl, username, password);

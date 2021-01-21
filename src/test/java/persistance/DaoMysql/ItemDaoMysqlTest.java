@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import com.qa.ims.Ims;
 import com.qa.ims.persistence.dao.ItemDaoMysql;
@@ -47,10 +48,10 @@ public class ItemDaoMysqlTest {
 		ItemDaoMysql itemsDaoMysql = new ItemDaoMysql(jdbcConnectionUrl, username, password);
 		String IName = "Samsung Spaceship";
 		Double price = (double) 870;
-		Item item = new Item(1l, IName, price);
-		Item savedItem = new Item(1l, IName, price);
+		Item item = new Item(null, IName, price);
+		Item savedItem = new Item(null, IName, price);
 		item = itemsDaoMysql.create(item);
-		item.setId(1l);
+		item.setId(null);
 		assertEquals(savedItem, item);
 		
 	}
@@ -59,11 +60,11 @@ public class ItemDaoMysqlTest {
 		ItemDaoMysql itemsDaoMysql = new ItemDaoMysql(jdbcConnectionUrl, username, password);
 		String IName = "Samsung Spaceship";
 		double price = (double) 870;
-		Item item = new Item(1l, IName, price);
-		Item savedItem = new Item(1l, IName, price);
+		Item item = new Item(null, IName, price);
+		Item savedItem = new Item(null, IName, price);
 		item = itemsDaoMysql.create(item);
-		item.setId(1l);
-		itemsDaoMysql.readItem(1l);
+		item.setId(null);
+		itemsDaoMysql.readItem(null);
 		assertEquals(savedItem, item);
 	
 
@@ -74,10 +75,10 @@ public class ItemDaoMysqlTest {
 		ItemDaoMysql itemsDaoMysql = new ItemDaoMysql(jdbcConnectionUrl, username, password);
 		String IName = "Samsung Spaceship";
 		double price = (double) 870;
-		Item item = new Item(1l, IName, price);
-		Item savedItem = new Item(1l, IName, price);
+		Item item = new Item(null, IName, price);
+		Item savedItem = new Item(null, IName, price);
 		item = itemsDaoMysql.create(item);
-		item.setId(1l);
+		item.setId(null);
 		itemsDaoMysql.update(item);
 		assertEquals(savedItem, item);
 		
@@ -88,8 +89,8 @@ public class ItemDaoMysqlTest {
 		ItemDaoMysql itemsDaoMysql = new ItemDaoMysql(jdbcConnectionUrl, username, password);
 		String IName = "Samsung Spaceship";
 		double price = (double) 870;
-		Item item = new Item(1l, IName, price);
-		Item savedItem = new Item(1l, IName, price);
+		Item item = new Item(null, IName, price);
+		Item savedItem = new Item(null, IName, price);
 		List<Item> items = new ArrayList<>();
 		items.add(item);
 		items.add(savedItem);
@@ -102,14 +103,12 @@ public class ItemDaoMysqlTest {
 	public void deleteTest() {
 		ItemDaoMysql itemsDaoMysql = new ItemDaoMysql(jdbcConnectionUrl, username, password);
 		Long id = 1l;
-		String IName = "carrot cake";
-		double price = 3.00;
+		String IName = "sample1";
+		double price = 376.00;
 		Item item = new Item(id, IName, price);
-		Item savedItem = new Item(1l, IName, price);
+		Item savedItem = new Item(id, IName, price);
 		itemsDaoMysql.create(item);
-		item.setId(1l);
 		itemsDaoMysql.delete(1l);
-		assertNotSame(savedItem, item);
 	}
 	
 

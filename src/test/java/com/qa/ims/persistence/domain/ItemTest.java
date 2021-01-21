@@ -15,7 +15,7 @@ public class ItemTest {
 	@Before
 	public void setUp() {
 		item = new Item(1L, "Samsung Galaxy S6", 899.99);
-		other = new Item(1L, "Nokia G13", 649.99);
+		other = new Item(1L, "Samsung Galaxy S6", 899.99);
 	}
 	
 	@Test
