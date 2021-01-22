@@ -1,6 +1,4 @@
-Coverage: 58%
-
-![Coverage]
+Coverage: 57.1%
 
 
 # Inventory Management System Application by Waleed Tahir
