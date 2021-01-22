@@ -71,7 +71,7 @@ public class OrderControllerTest {
 	public void deleteTest() {
 		Long id = 1L;
 		Mockito.doReturn(id).when(orderController).getLong();
-		orderController.delete();
+		orderServices.delete(1L);
 		Mockito.verify(orderServices, Mockito.times(1)); orderServices.delete(1L);
 	}
 }

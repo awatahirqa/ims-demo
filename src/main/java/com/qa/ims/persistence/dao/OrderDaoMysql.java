@@ -67,12 +67,7 @@ public  class OrderDaoMysql implements Dao<Order> {
 		
 }
 
-		/**
-		 * Reads all customers from the database
-		 * @param itemIDs 
-		 * 
-		 * @return A list of customers
-		 */
+		
 		@Override
 		public List<Order> readAll() {
 			try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
@@ -104,11 +99,7 @@ public  class OrderDaoMysql implements Dao<Order> {
 			return null;
 		}
 
-		/**
-		 * Creates a customer in the database
-		 * 
-		 * @param customer - takes in a customer object. id will be ignored
-		 */
+		
 		@Override
 		public Order create(Order order) {
 			try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
@@ -147,13 +138,7 @@ public  class OrderDaoMysql implements Dao<Order> {
 			return null;
 		}
 
-		/**
-		 * Updates a customer in the database
-		 * 
-		 * @param customer - takes in a customer object, the id field will be used to
-		 *                 update that customer in the database
-		 * @return
-		 */
+		
 		@Override
 		public Order update(Order order) {
 			try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
