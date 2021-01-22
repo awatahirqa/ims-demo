@@ -1,76 +1,106 @@
 Coverage: 58%
-Inventory Management System
 
-The overall objective of the project is the following: 
+![Coverage]
 
-To create a functional Inventory Managment service application, using supporting tools, methodologies, and technologies, that encapsulates all fundamental modules covered during training.
 
-The project document folder contains my...
+# Inventory Management System Application by Waleed Tahir
 
-Getting Started
+
+This is an  **Inventory Management System Application** that was build using Java and can be run with a Command-Line Interface. The inventory management system connects to a database and allows the user to easily **Create,Read,Update and Delete Customers,Items and Orders**. This application can also be used too calculate the cost of an order. 
+
+## Table of contents
+* [Prerequisite](#Prerequisite)
+* [Installing](#Installing)
+* [Testing](#Testing)
+* [Creating JAR file](#Creating_JAR_file)
+* [Deployment](#Deployment)
+* [Built With](#Built_With)
+* [Versioning](#Versioning)
+* [Authors](#Authors)
+* [License](#License)
+* [Acknowledgments](#Acknowledgments)
+
+
+
+
+
+## Getting Started
+
 The following instructions will get you allow you to access a copy of the project up as well as running it on your local machine for development and testing purposes. See deployment for info on how to deploy the project on a live system.
 
-Step one fork and clone this repository
-Step two Launch the project in your IDE of choice 
-Step three set up JDBCconnection url so that it connects to your database
-Prerequisites
-The things you need to install for the software and how to install them
-* Git Bash
-* Java JRE
-* Eclipse or other IDE
-* Maven 
 
-Installing
-A step by step series of examples that tell you how to get a development env running
+## Prerequisite
+* [Git Bash](https://git-scm.com/downloads)
+* [Java JRE 14.1](https://www.eclipse.org/downloads/)
+* [Eclipse or other IDE](https://www.eclipse.org/downloads/)
+* [MySQL](https://www.mysql.com/downloads/)
+* [Maven](http://maven.apache.org/download.cgi)
+* [GCP](http://maven.apache.org/download.cgi)
 
-Say what the step will be
 
-Give the example
-And repeat
 
-until finished
-End with an example of getting some data out of the system or using it for a little demo
+### Installing
 
-Running the tests
-Explain how to run the automated tests for this system. Break down into which tests and what they do
+1. You will need to clone down the repo, here is a link to the repo [GitHub][https://github.com/]
+2. Git Bash in the destination folder you'd like to clone to.
+3.Clone the repo to your local system using command Git clone and the Repository URL
+4.Launch the project in your IDE of choice 
+5.set up JDBCconnection url so that it connects to your database
 
-Unit Tests
-Unit testing tests individual parts of the program to check they are correct
+## Testing
 
-Each of the classes have its own respective partner in the src/test/java folder  
-If you wish to run the tests:
-*Right click on the class in the test folder -> *Then 'run as'->*Select 'JUnit test'  
-Integration Tests
-Explain what these tests test, why and how to run them
+All testing of this program was done using unit tests. 
+JUnit and Mockito were used to write the tests.
 
-Give an example
-And coding style tests
-Here we have SonarQube, this tests the viability of our whole source code.
-It gives us a break down of 'code smells', 'vunerability', 'Bugs' and 'Security Hotspots'.
 
-Give an example
-Deployment
-Once the repo has been forked/cloned,
+#### Creating JAR file:
 
-open a CLI in the folder where the project is located
-Run the mvn clean
-This has removed the target folder, now you want to run mvn package to create the jar file
-After this you can see the targt folder is back run cd target
-In order to run the program java -jar sam-ims-0.0.1-jar-with-dependencies.jar tab will also autocomplete
-Built With
-Maven - Dependency Management
-Versioning
-We use SemVer for versioning.
+1. Right Click on the folder of the directory containing the repository
+2. Select Git Bash
+3. Write the following
 
-Authors
-Chris Perrins - Initial work - christophperrins
-Waleed Tahir 
-License
-This project is licensed under the MIT license - see the LICENSE.md file for details
+```
+mvn clean package
+```
 
-For help in Choosing a license
+4. This will now run all testing, ensuring it all passes, you'll get JAR file in the target folder.
 
-Acknowledgments
-Hat tip to anyone whose code was used
-Inspiration
-etc
+## Deployment
+
+To deploy this software to a cloud database such as Google Cloud Platform (GCP) you will need to do the following;
+
+**Open the project**
+
+1. In the main folder 'src/main/java' Open > Ims.java
+2. Scroll down until you see init("jdbc:mysql://
+3. change the localhost to your desired Database location
+
+## Built With
+
+* [Maven](https://maven.apache.org/) - Dependency Management
+
+## Versioning
+
+Version Control System: Git
+Source Code Management: GitHub
+Database Management System: MySQL Server 5.7 (local or GCP instance)
+
+[Maven Versioning](http://maven.apache.org/download.cgi)  incremental, Minor & Major was used to update the version.
+
+
+## Authors
+
+* **Chris Perrins** - *Initial work* 
+
+* **Waleed Tahir** - *From intitial to completion* 
+
+## License
+
+This project is licensed under the MIT license - see the [LICENSE.md](LICENSE.md) file for details 
+
+*For help in [Choosing a license](https://choosealicense.com/)*
+
+## Acknowledgments
+
+* I would like to say a massive thank you to Nick, Aswene and Vinesh 
+
