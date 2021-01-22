@@ -64,7 +64,7 @@ public class CustomerDaoMysql implements Dao<Customer> {
 	public Customer readLatest() {
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT FROM customers ORDER BY id DESC LIMIT 1");) {
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM customers ORDER BY id DESC LIMIT 1");) {
 			resultSet.next();
 			return customerFromResultSet(resultSet);
 		} catch (Exception e) {
@@ -141,6 +141,20 @@ public class CustomerDaoMysql implements Dao<Customer> {
 			LOGGER.debug(e.getStackTrace());
 			LOGGER.error(e.getMessage());
 		}
+	}
+
+	
+
+	@Override
+	public Customer createOrderLine(Customer t) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Customer updateOrderLine(Customer t) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

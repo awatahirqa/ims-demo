@@ -1,6 +1,7 @@
 package com.qa.ims;
 
 import java.io.BufferedReader;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -13,9 +14,18 @@ import org.apache.log4j.Logger;
 import com.qa.ims.controller.Action;
 import com.qa.ims.controller.CrudController;
 import com.qa.ims.controller.CustomerController;
+import com.qa.ims.controller.ItemController;
+import com.qa.ims.controller.OrderController;
+import com.qa.ims.controller.OrderCrudController;
 import com.qa.ims.persistence.dao.CustomerDaoMysql;
+import com.qa.ims.persistence.dao.ItemDaoMysql;
+import com.qa.ims.persistence.dao.OrderDaoMysql;
 import com.qa.ims.persistence.domain.Domain;
+import com.qa.ims.persistence.domain.Order;
+import com.qa.ims.services.CrudServices;
 import com.qa.ims.services.CustomerServices;
+import com.qa.ims.services.ItemServices;
+import com.qa.ims.services.OrderServices;
 import com.qa.ims.utils.Utils;
 
 public class Ims {
@@ -24,16 +34,23 @@ public class Ims {
 
 	public void imsSystem() {
 		LOGGER.info("What is your username");
-		String username = Utils.getInput();
+		String username = Utils.getInput(); 
 		LOGGER.info("What is your password");
-		String password = Utils.getInput();
+		String password = Utils.getInput(); 
 
 		init(username, password);
-
+		boolean stop = false;
+		
+		do {
 		LOGGER.info("Which entity would you like to use?");
 		Domain.printDomains();
-
+		
 		Domain domain = Domain.getDomain();
+		if(domain.name().equals("STOP")) {
+			LOGGER.info("Thank you for using this application,Goodbye");
+			System.exit(0);
+		}
+
 		LOGGER.info("What would you like to do with " + domain.name().toLowerCase() + ":");
 
 		Action.printActions();
@@ -45,19 +62,54 @@ public class Ims {
 					new CustomerServices(new CustomerDaoMysql(username, password)));
 			doAction(customerController, action);
 			break;
+			
 		case ITEM:
+			ItemController itemController = new ItemController(
+					new ItemServices(new ItemDaoMysql(username, password)));
+			doAction(itemController, action);
 			break;
 		case ORDER:
+			OrderController orderController = new OrderController(
+				 new OrderServices(new OrderDaoMysql(username, password)),
+			new ItemServices(new ItemDaoMysql(username, password)));
+			doOrderAction(orderController, action);
 			break;
 		case STOP:
+			stop = true;
+			break;
+		default:
+			break;
+		} 
+		
+		}
+		while (!stop);
+		LOGGER.info("GOODBYE");
+		
+	}
+		
+	
+
+	public void doAction(CrudController<?> crudController, Action action) {
+		switch (action) {
+		case CREATE:
+			crudController.create();
+			break;
+		case READ:
+			crudController.readAll();
+			break;
+		case UPDATE:
+			crudController.update();
+			break;
+		case DELETE:
+			crudController.delete();
+			break;
+		case RETURN:
 			break;
 		default:
 			break;
 		}
-
 	}
-
-	public void doAction(CrudController<?> crudController, Action action) {
+	public void doOrderAction(OrderCrudController<?> crudController, Action action) {
 		switch (action) {
 		case CREATE:
 			crudController.create();
