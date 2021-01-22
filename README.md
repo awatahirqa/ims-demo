@@ -100,5 +100,8 @@ This project is licensed under the MIT license - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* I would like to say a massive thank you to Nick, Aswene and Vinesh 
+* I would like to say a massive thank you to ;
+*Nicholas Johnson - trainer
+*Aswene Sivaraj - trainer
+*Vinesh Ghela - trainer
 
