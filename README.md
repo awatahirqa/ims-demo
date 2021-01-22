@@ -39,11 +39,11 @@ The following instructions will get you allow you to access a copy of the projec
 
 ### Installing
 
-1. You will need to clone down the repo, here is a link to the repo [GitHub][https://github.com/]
-2. Git Bash in the destination folder you'd like to clone to.
-3.Clone the repo to your local system using command Git clone and the Repository URL
-4.Launch the project in your IDE of choice 
-5.set up JDBCconnection url so that it connects to your database
+*1. You will need to clone down the repo, here is a link to the repo
+*2. Git Bash in the destination folder you'd like to clone to.
+*3.Clone the repo to your local system using command Git clone and the Repository URL
+*4.Launch the project in your IDE of choice 
+*5.set up JDBCconnection url so that it connects to your database
 
 ## Testing
 
@@ -61,7 +61,7 @@ JUnit and Mockito were used to write the tests.
 mvn clean package
 ```
 
-4. This will now run all testing, ensuring it all passes, you'll get JAR file in the target folder.
+4. This will now run all of teh applications testing, ensuring it all passes, you'll then get JAR file produced in the project target folder.
 
 ## Deployment
 
@@ -70,8 +70,8 @@ To deploy this software to a cloud database such as Google Cloud Platform (GCP) 
 **Open the project**
 
 1. In the main folder 'src/main/java' Open > Ims.java
-2. Scroll down until you see init("jdbc:mysql://
-3. change the localhost to your desired Database location
+2. Scroll down until you see init("jdbc:mysql:// declaring your connection point
+3. change the connection point to your desired Database location
 
 ## Built With
 
