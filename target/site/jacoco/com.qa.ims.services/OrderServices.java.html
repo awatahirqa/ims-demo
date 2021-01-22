@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrderServices.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Waleed-ims</a> &gt; <a href="index.source.html" class="el_package">com.qa.ims.services</a> &gt; <span class="el_source">OrderServices.java</span></div><h1>OrderServices.java</h1><pre class="source lang-java linenums">package com.qa.ims.services;
+
+import java.util.List;
+
+import com.qa.ims.persistence.dao.Dao;
+import com.qa.ims.persistence.dao.OrderDaoMysql;
+import com.qa.ims.persistence.domain.Order;
+
+public class OrderServices implements OrderCrudServices&lt;Order&gt; {
+
+		private Dao&lt;Order&gt; orderDao;
+		
+		public OrderServices(Dao&lt;Order&gt; orderDao) {
+<span class="fc" id="L14">			super ();</span>
+<span class="fc" id="L15">			this.orderDao = orderDao;</span>
+<span class="fc" id="L16">		}</span>
+		
+		public List&lt;Order&gt; readAll() {
+<span class="fc" id="L19">			return orderDao.readAll();</span>
+		}
+
+		public Order create(Order order) {
+<span class="fc" id="L23">			return orderDao.create(order);</span>
+		}
+	
+
+		public Order update(Order order) {
+<span class="fc" id="L28">			return orderDao.update(order);</span>
+		}
+
+		public void delete(Long id) {
+<span class="fc" id="L32">			orderDao.delete(id);</span>
+<span class="fc" id="L33">		}</span>
+		public Order createOrderLine(Order orderline) {
+<span class="nc" id="L35">			return orderDao.createOrderLine(orderline);</span>
+		}
+		
+		public void deleteItem(Long orderID, Long itemID) {
+			// TODO Auto-generated method stub
+<span class="nc" id="L40">			orderDao.delete( itemID);</span>
+			
+<span class="nc" id="L42">		}</span>
+
+		
+		public Order cost(Order t) {
+			// TODO Auto-generated method stub
+<span class="nc" id="L47">			return null;</span>
+		}
+
+		@Override
+		public Order addItem(Order t) {
+			// TODO Auto-generated method stub
+<span class="nc" id="L53">			return null;</span>
+		}
+
+		@Override
+		public Order updateOrderLine(Order order) {
+<span class="nc" id="L58">			return orderDao.updateOrderLine(order);</span>
+		}
+
+		
+
+
+		
+		
+
+	}
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

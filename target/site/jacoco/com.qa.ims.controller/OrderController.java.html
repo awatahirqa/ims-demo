@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrderController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Waleed-ims</a> &gt; <a href="index.source.html" class="el_package">com.qa.ims.controller</a> &gt; <span class="el_source">OrderController.java</span></div><h1>OrderController.java</h1><pre class="source lang-java linenums">package com.qa.ims.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+
+import com.qa.ims.persistence.domain.Customer;
+import com.qa.ims.persistence.domain.Item;
+import com.qa.ims.persistence.domain.Order;
+import com.qa.ims.services.CrudServices;
+import com.qa.ims.services.OrderCrudServices;
+import com.qa.ims.services.OrderServices;
+import com.qa.ims.utils.Utils;
+
+public class OrderController implements OrderCrudController&lt;Order&gt; {
+
+<span class="fc" id="L18">	public static final Logger LOGGER = Logger.getLogger(OrderController.class);</span>
+
+	private OrderCrudServices&lt;Order&gt; orderService;
+	private CrudServices&lt;Item&gt; itemServices;
+
+<span class="fc" id="L23">	public OrderController(OrderServices orderServices, CrudServices&lt;Item&gt; itemServices) {</span>
+<span class="fc" id="L24">		this.orderService = orderServices;</span>
+<span class="fc" id="L25">		this.itemServices = itemServices;</span>
+<span class="fc" id="L26">	}</span>
+
+	String getInput() {
+<span class="nc" id="L29">		return Utils.getInput(); </span>
+	}
+
+	Long getLong() {
+<span class="nc" id="L33">		return Utils.getLongInput();</span>
+	}
+
+	/**
+	 * Reads all orders to the logger
+	 */
+	@Override
+	public List&lt;Order&gt; readAll() {
+<span class="nc" id="L41">		List&lt;Order&gt; orders = orderService.readAll();</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">		for (Order order : orders) {</span>
+<span class="nc" id="L43">			LOGGER.info(order.toString());</span>
+<span class="nc" id="L44">		}</span>
+<span class="nc" id="L45">		return orders;</span>
+	}
+
+	/**
+	 * Creates a order by taking in user input
+	 */
+	@Override
+	public Order create() {
+<span class="nc" id="L53">		LOGGER.info(&quot;Please enter a Customer ID&quot;);</span>
+<span class="nc" id="L54">		Long CustomerID = getLong();</span>
+<span class="nc" id="L55">		Order order = orderService.create(new Order(CustomerID));</span>
+<span class="nc" id="L56">		Long OrderID = order.getOrderID();</span>
+<span class="nc" id="L57">		List&lt;Item&gt; items = itemServices.readAll();</span>
+<span class="nc" id="L58">		Item item = null;</span>
+<span class="nc" id="L59">		LOGGER.info(&quot;add an item to this order&quot;);</span>
+<span class="nc" id="L60">		Boolean loop = false;</span>
+<span class="nc" id="L61">		String Escape = &quot;&quot;;</span>
+
+<span class="nc bnc" id="L63" title="All 2 branches missed.">		while (!loop) {</span>
+<span class="nc" id="L64">			LOGGER.info(&quot;Please enter ITEM ID&quot;);</span>
+<span class="nc" id="L65">			Long itemID = Long.valueOf(getInput());</span>
+<span class="nc" id="L66">			LOGGER.info(&quot;Please enter the Quantity of the ITEM that you'd like&quot;);</span>
+<span class="nc" id="L67">			Integer quantity = Integer.valueOf(getInput());</span>
+
+<span class="nc bnc" id="L69" title="All 2 branches missed.">			for (Item i : items) {</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">				if (i.getId() == itemID) {</span>
+<span class="nc" id="L71">					item = i;</span>
+<span class="nc" id="L72">					LOGGER.info(&quot;You have added&quot; + &quot; &quot; + quantity + &quot; &quot; + &quot;of the below Item&quot;);</span>
+<span class="nc" id="L73">					System.out.println(i);</span>
+<span class="nc" id="L74">					break;</span>
+				}
+<span class="nc" id="L76">			}</span>
+
+<span class="nc" id="L78">			order.setOrderID(OrderID);</span>
+<span class="nc" id="L79">			order.setItemIDs(item);</span>
+<span class="nc" id="L80">			order.setIDitem(item.getId());</span>
+<span class="nc" id="L81">			LOGGER.info(item.getId());</span>
+<span class="nc" id="L82">			int cost = (int) (item.getPrice() * quantity);</span>
+<span class="nc" id="L83">			order.setQuantity(quantity);</span>
+<span class="nc" id="L84">			order.setCost(cost);</span>
+<span class="nc" id="L85">			LOGGER.info(order);</span>
+<span class="nc" id="L86">			order = orderService.createOrderLine(order);</span>
+<span class="nc" id="L87">			LOGGER.info(&quot;ADD: To add another Item to the order &quot;);</span>
+<span class="nc" id="L88">			LOGGER.info(&quot;RETURN: TO EXIT &quot;);</span>
+<span class="nc" id="L89">			Escape = getInput().toLowerCase();</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">			if (Escape.contentEquals(&quot;return&quot;)) {</span>
+<span class="nc" id="L91">				loop = true;</span>
+			}
+
+<span class="nc" id="L94">		}</span>
+<span class="nc" id="L95">		LOGGER.info(&quot;Order Created&quot;);</span>
+<span class="nc" id="L96">		return order;</span>
+	}
+
+	/**
+	 * Updates an existing order by taking in user input
+	 */
+	@Override
+	public Order update() {
+
+<span class="nc" id="L105">		LOGGER.info(&quot;ADD - to add an ITEM to an exisiting order&quot;);</span>
+<span class="nc" id="L106">		LOGGER.info(&quot;UPDATE - to assign another customer to an exisiting order &quot;);</span>
+
+<span class="nc" id="L108">		String option = String.valueOf(getInput().toLowerCase());</span>
+
+<span class="nc bnc" id="L110" title="All 3 branches missed.">		switch (option) {</span>
+
+		case &quot;add&quot;:
+<span class="nc" id="L113">			LOGGER.info(&quot;add an ITEM to an exisiting order&quot;);</span>
+<span class="nc" id="L114">			List&lt;Order&gt; orders = orderService.readAll();</span>
+
+<span class="nc" id="L116">			List&lt;Item&gt; items = itemServices.readAll();</span>
+<span class="nc" id="L117">			Item item = null;</span>
+
+<span class="nc" id="L119">			LOGGER.info(&quot;Please enter the Order ID thay you'd like to update&quot;);</span>
+<span class="nc" id="L120">			Long order_id = Long.valueOf(getInput());</span>
+
+<span class="nc" id="L122">			Order order = new Order(order_id);</span>
+<span class="nc" id="L123">			order = orderService.create(order);</span>
+
+<span class="nc" id="L125">			LOGGER.info(&quot;Please enter ITEM ID you'd like to add&quot;);</span>
+<span class="nc" id="L126">			Long item_id = Long.valueOf(getInput());</span>
+
+<span class="nc" id="L128">			LOGGER.info(&quot;Please enter the Quantity of the ITEM that you'd like&quot;);</span>
+<span class="nc" id="L129">			Integer quantity = Integer.valueOf(getInput());</span>
+
+<span class="nc" id="L131">			order.setOrderID(order_id);</span>
+<span class="nc" id="L132">			order.setIDitem(item.getId());</span>
+<span class="nc" id="L133">			int cost = (int) (item.getPrice() * quantity);</span>
+<span class="nc" id="L134">			order.setQuantity(quantity);</span>
+<span class="nc" id="L135">			order.setCost(cost);</span>
+<span class="nc" id="L136">			order = orderService.updateOrderLine(order);</span>
+<span class="nc" id="L137">			LOGGER.info(&quot;order has been updated&quot;);</span>
+<span class="nc" id="L138">			return order;</span>
+
+		case &quot;update&quot;:
+
+<span class="nc" id="L142">			LOGGER.info(&quot;Please enter the id of the order you would like to update&quot;);</span>
+<span class="nc" id="L143">			Long OrderID = Long.valueOf(getInput());</span>
+<span class="nc" id="L144">			LOGGER.info(&quot;Please enter a CustomerID&quot;);</span>
+<span class="nc" id="L145">			Long CustomerID = getLong();</span>
+<span class="nc" id="L146">			Order ordera = orderService.update(new Order(OrderID,CustomerID));</span>
+<span class="nc" id="L147">			LOGGER.info(&quot;Customer Updated&quot;);</span>
+<span class="nc" id="L148">			return ordera;</span>
+
+		default:
+<span class="nc" id="L151">			LOGGER.info(&quot;input not valid try again&quot;);</span>
+			break;
+		}
+
+<span class="nc" id="L155">		return null;</span>
+	}
+
+	/**
+	 * Deletes an existing order by the id of the order
+	 */
+	@Override
+	public void delete() {
+
+<span class="nc" id="L164">		LOGGER.info(&quot;Would you like to delete an ORDER or a Item in a ORDER&quot;);</span>
+<span class="nc" id="L165">		String select = String.valueOf(getInput().toLowerCase());</span>
+
+<span class="nc bnc" id="L167" title="All 3 branches missed.">		switch (select) {</span>
+		case &quot;order&quot;:
+<span class="nc" id="L169">			LOGGER.info(&quot;Please enter the id of the order you would like to delete&quot;);</span>
+<span class="nc" id="L170">			Long id = Long.valueOf(getInput());</span>
+<span class="nc" id="L171">			orderService.delete(id);</span>
+
+		case &quot;item&quot;:
+<span class="nc" id="L174">			LOGGER.info(&quot;Delete an ITEM from an exisiting order&quot;);</span>
+
+<span class="nc" id="L176">			LOGGER.info(&quot;Please enter the Order ID thay you'd like to update&quot;);</span>
+<span class="nc" id="L177">			Long OrderID = Long.valueOf(getInput());</span>
+<span class="nc" id="L178">			List&lt;Order&gt; orders = orderService.readAll();</span>
+<span class="nc bnc" id="L179" title="All 2 branches missed.">			for (Order i : orders) {</span>
+<span class="nc" id="L180">				Order order = null;</span>
+<span class="nc bnc" id="L181" title="All 2 branches missed.">				while (i.getOrderID() == OrderID) {</span>
+<span class="nc" id="L182">					order = i;</span>
+<span class="nc" id="L183">					System.out.println(i);</span>
+					break;
+				}
+<span class="nc" id="L186">				LOGGER.info(&quot;SELECT ITEM to delete from ORDER&quot;);</span>
+<span class="nc" id="L187">				Long IDitem = Long.valueOf(getInput());</span>
+<span class="nc" id="L188">				LOGGER.info(&quot;Item has been Deleted&quot;);</span>
+<span class="nc" id="L189">				orderService.deleteItem(OrderID,IDitem);</span>
+
+<span class="nc" id="L191">				break;</span>
+			}
+		}
+<span class="nc" id="L194">	}</span>
+
+	@Override
+	public Order cost() {
+		// TODO Auto-generated method stub
+<span class="nc" id="L199">		return null;</span>
+	}
+
+	
+	
+
+	
+	}
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
