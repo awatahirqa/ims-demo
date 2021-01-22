@@ -44,7 +44,7 @@ public  class OrderDaoMysql implements Dao<Order> {
 				return OrderFromResultSet(resultSet);
 			} catch (Exception e) {
 				LOGGER.debug(e.getStackTrace());
-				LOGGER.error(e.getMessage());
+				LOGGER.error(e.getMessage()); 
 			}
 			return null;
 		}
@@ -89,7 +89,7 @@ public  class OrderDaoMysql implements Dao<Order> {
 		public Order readLatest() {
 			try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 					Statement statement = connection.createStatement();
-					ResultSet resultSet = statement.executeQuery("SELECT orders.OrderID, orders.CustomerID, orderline.item_id, item.item_name, item.price, orderline.quantity FROM orderline JOIN orders on orderline.order_id=orders.OrderID JOIN items on item.id=orderline.item_id ORDER BY id DESC LIMIT 1;");) {
+					ResultSet resultSet = statement.executeQuery("SELECT * from orders ORDER BY id DESC LIMIT 1;");) {
 				resultSet.next();
 				return OrderFromResultSet(resultSet);
 			} catch (Exception e) {
@@ -115,7 +115,7 @@ public  class OrderDaoMysql implements Dao<Order> {
 		public Order readOrder(Long id) {
 			try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 					Statement statement = connection.createStatement();
-					ResultSet resultSet = statement.executeQuery("SELECT orders.OrderID, orders.CustomerID, orderline.item_id, item.item_name, item.price, orderline.quantity from orderline JOIN orders on orderline.order_id=orders.OrderID JOIN items on item.id=orderline.item_id ORDER BY id DESC LIMIT 1;\" where OrderID = " + id);) {
+					ResultSet resultSet = statement.executeQuery("SELECT * from orders.OrderID, orders.CustomerID, orderline.item_id, item.item_name, item.price, orderline.quantity from orderline JOIN orders on orderline.order_id=orders.OrderID JOIN items on item.id=orderline.item_id ORDER BY id DESC LIMIT 1;\" where OrderID = " + id);) {
 				resultSet.next();
 				return OrderFromResultSet(resultSet);
 			} catch (Exception e) {
@@ -124,11 +124,22 @@ public  class OrderDaoMysql implements Dao<Order> {
 			}
 			return null;
 		}
-		
+		public Order readnewOrder(Long id) {
+			try (Connection conn = DriverManager.getConnection(jdbcConnectionUrl, username, password);
+					Statement stmt = conn.createStatement();
+					ResultSet resultSet = stmt.executeQuery("select * from orders where OrderID = " + id);) {
+				resultSet.next();
+				return OrderFromResultSet(resultSet);
+			} catch (Exception e) {
+				LOGGER.debug(e.getStackTrace());
+				LOGGER.error(e.getMessage());
+			}
+			return null;
+		}
 		public Order readOrderLine(Long id) {
 			try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 					Statement statement = connection.createStatement();
-					ResultSet resultSet = statement.executeQuery("SELECT * FROM orderline where OrderID = " + id);) {
+					ResultSet resultSet = statement.executeQuery("SELECT * FROM orderline where OrderID = '" + id);) {
 				resultSet.next();
 				return OrderFromResultSet(resultSet);
 			} catch (Exception e) {
@@ -143,14 +154,17 @@ public  class OrderDaoMysql implements Dao<Order> {
 		public Order update(Order order) {
 			try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 					Statement statement = connection.createStatement();) {
-				statement.executeUpdate("update orders set CustomerID ='" + order.getCustomerID() + "' where OrderID =" + order.getOrderID());
-				return readOrder(order.getOrderID());
+				statement.executeUpdate("update orders set OrderID ='" + order.getOrderID() + "', CustomerID ='" + 
+					+ order.getCustomerID() +  "' where OrderID =" + order.getOrderID());
+				return readnewOrder(order.getOrderID());
 			} catch (Exception e) {
 				LOGGER.debug(e.getStackTrace());
 				LOGGER.error(e.getMessage());
 			}
 			return null;
 		}
+
+		
 
 		/**
 		 * Deletes a order in the database
@@ -179,7 +193,7 @@ public  class OrderDaoMysql implements Dao<Order> {
 						+ order.getCost() + ","
 						+ order.getQuantity() + ")");
 				return readLatest();
-			} catch (Exception e) {
+			} catch (Exception e) { 
 				LOGGER.debug(e.getStackTrace());
 				LOGGER.error(e.getMessage());
 			}

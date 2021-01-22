@@ -98,7 +98,7 @@ public class ItemDaoMysql implements Dao<Item> {
 		public Item readItem(Long id) {
 			try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 					Statement statement = connection.createStatement();
-					ResultSet resultSet = statement.executeQuery("SELECT FROM item where id = " + id);) {
+					ResultSet resultSet = statement.executeQuery("SELECT * FROM item where id = " + id);) {
 				resultSet.next();
 				return ItemFromResultSet(resultSet);
 			} catch (Exception e) {
@@ -119,15 +119,16 @@ public class ItemDaoMysql implements Dao<Item> {
 		public Item update(Item item) {
 			try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 					Statement statement = connection.createStatement();) {
-				statement.executeUpdate("update item set ='" + item.getIName() + "', price ='"
-						+ item.getPrice() + "' where id =" + item.getId());
+				statement.executeUpdate("update item set item_name  ='" + item.getIName() + "', price ="
+						+ item.getPrice() + " where id =" + item.getId());
 				return readItem(item.getId());
 			} catch (Exception e) {
 				LOGGER.debug(e.getStackTrace());
-				LOGGER.error(e.getMessage());
+				LOGGER.error(e.getMessage()); 
 			}
 			return null;
 		}
+//		update item set item_name = "Samsung sun", price = 100 where id = 1;
 
 		/**
 		 * Deletes a customer in the database

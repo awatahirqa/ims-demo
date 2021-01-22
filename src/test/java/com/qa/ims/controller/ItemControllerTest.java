@@ -25,10 +25,7 @@ public class ItemControllerTest {
 	@Mock
 	private ItemServices itemServices;
 	
-	/**
-	 * Spy is used because i want to mock some methods inside the item I'm testing
-	 * InjectMocks uses dependency injection to insert the mock into the customer controller
-	 */
+	
 	@Spy
 	@InjectMocks
 	private ItemController itemController;

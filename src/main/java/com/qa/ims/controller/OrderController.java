@@ -26,7 +26,7 @@ public class OrderController implements OrderCrudController<Order> {
 	}
 
 	String getInput() {
-		return Utils.getInput();
+		return Utils.getInput(); 
 	}
 
 	Long getLong() {
@@ -143,7 +143,7 @@ public class OrderController implements OrderCrudController<Order> {
 			Long OrderID = Long.valueOf(getInput());
 			LOGGER.info("Please enter a CustomerID");
 			Long CustomerID = getLong();
-			Order ordera = orderService.update(new Order(OrderID, CustomerID));
+			Order ordera = orderService.update(new Order(OrderID,CustomerID));
 			LOGGER.info("Customer Updated");
 			return ordera;
 
